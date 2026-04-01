@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <title>Request Help</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/help.css">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <h2 class="logo">UAWP</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="resource.html">Resources</a>
+  </nav>
+</header>
+
+<!-- Help Section -->
+<section class="form-section">
+
+  <h1>Request Help</h1>
+  <p class="subtitle">Fill the form below and we will connect you with the right support.</p>
+
+  <form id="helpForm">
+
+    <!-- Step 1 -->
+    <label>Full Name</label>
+    <input type="text" placeholder="Enter your name" required>
+
+    <label>Email</label>
+    <input type="email" placeholder="Enter your email" required>
+
+    <!-- Step 2 -->
+    <label>Type of Help</label>
+    <select required>
+      <option value="">Select type</option>
+      <option>Medical Support</option>
+      <option>Educational Support</option>
+      <option>Financial Help</option>
+      <option>Assistive Device</option>
+    </select>
+
+    <!-- Step 3 -->
+    <label>Urgency Level</label>
+    <select required>
+      <option value="">Select urgency</option>
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+
+    <!-- Step 4 -->
+    <label>Describe Your Need</label>
+    <textarea placeholder="Explain your situation clearly..." required></textarea>
+
+    <!-- Step 5 -->
+    <label>Phone Number</label>
+    <input type="text" placeholder="Enter phone number">
+
+    <button type="submit">Submit Request</button>
+
+  </form>
+
+</section>
+
+<script>
+document.getElementById("helpForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  alert("Your request has been submitted!");
+  window.location.href = "success.html";
+});
+</script>
+
+</body>
+</html>
