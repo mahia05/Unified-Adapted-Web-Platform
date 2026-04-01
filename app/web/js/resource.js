@@ -1,8 +1,4 @@
-// ------------------------
-// RESOURCE.JS
-// ------------------------
-
-// 1️⃣ Search Input Filter
+// Search Input Filter
 const searchInput = document.getElementById("searchInput");
 const cards = document.querySelectorAll(".resource-card");
 
@@ -20,7 +16,7 @@ searchInput.addEventListener("keyup", function () {
     });
 });
 
-// 2️⃣ Category Filter Buttons
+// Category Filter Buttons
 const filterButtons = document.querySelectorAll(".filter-buttons button");
 
 filterButtons.forEach(button => {
@@ -39,7 +35,7 @@ filterButtons.forEach(button => {
     });
 });
 
-// 3️⃣ Modal Popup + Map Link
+//  Modal Popup + Map Link
 const viewButtons = document.querySelectorAll(".view-btn");
 const modal = document.getElementById("resourceModal");
 const closeBtn = document.querySelector(".close-btn");
