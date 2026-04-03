@@ -1,16 +1,17 @@
-const express = require("express");
+import express from "express";
+import cors from "cors";
+import connectDB from "./db.js";
+
 const app = express();
-const mongoose = require("mongoose");
-const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
 
 // DB connect
-mongoose.connect("mongodb://127.0.0.1:27017/uawp");
+connectDB();
 
 // Routes
-const resourceRoutes = require("./app/web/routes/resourceRoutes");
+import resourceRoutes from "./app/web/routes/resourceRoutes.js";
 app.use("/api/resources", resourceRoutes);
 
 // server

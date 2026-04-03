@@ -1,0 +1,17 @@
+*   [33m091c362[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Merge remote-tracking branch 'origin/auditi-section' ~ ~ ~ ~ ~ .git/MERGE_MSG [unix] (12:22 01/04/2026) 1,1 All "/d/Unified_adapted_web_platform/.git/MERGE_MSG" [unix] 6L, 279B   r a commit message to explain why this merge is necessary,
+[31m|[m[32m\[m  
+[31m|[m * [33m72aea7a[m[33m ([m[1;31morigin/auditi-section[m[33m)[m Add homepage and help section with UI design
+* [32m|[m [33me8a1509[m[33m ([m[1;31morigin/mahia-section[m[33m, [m[1;32mmahia-section[m[33m)[m Add resource search, filter, modal UI and backend API integration
+* [32m|[m [33m9b01c81[m resourceModel.js,resoureController.js,resourceRoutes.js,server.js code creates
+* [32m|[m [33m5105f26[m some modification happens on resource.js
+* [32m|[m   [33mf8a256b[m implement search and filter feature add add resource details model popup
+[33m|[m[34m\[m [32m\[m  
+[33m|[m * [32m|[m [33m58cb4e5[m just to switch in mahia-section
+[33m|[m * [32m|[m [33m6521404[m[33m ([m[1;31morigin/main[m[33m)[m new folder structure create
+* [34m|[m [32m|[m [33md8acec7[m changes happens in resource.html
+* [34m|[m [32m|[m [33m5dab8a8[m resource.html and resourse.css add to mahia-section
+[34m|[m[34m/[m [32m/[m  
+* [32m|[m [33me9c25e9[m project structure folders add
+* [32m|[m [33mc80da67[m frontened,backened,database folder create
+[32m|[m[32m/[m  
+* [33m6937942[m initial commit
