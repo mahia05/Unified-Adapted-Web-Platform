@@ -34,7 +34,7 @@
  
     .logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
+      font-size: 2rem;
       color: var(--secondary);
       letter-spacing: 2px;
     }
@@ -48,7 +48,7 @@
     .nav-links a {
       color: var(--light);
       text-decoration: none;
-      font-size: 0.92rem;
+      font-size: 1.2rem;
       font-weight: 500;
       letter-spacing: 0.5px;
       position: relative;
@@ -138,7 +138,7 @@
     .hero h1 span { color: var(--secondary); }
  
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       color: rgba(235,229,194,0.75);
       max-width: 540px;
       margin: 0 auto 40px;
@@ -159,7 +159,7 @@
       padding: 14px 30px;
       border-radius: 8px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s ease;
@@ -197,7 +197,7 @@
       align-items: center;
       gap: 6px;
       color: rgba(194,183,121,0.5);
-      font-size: 0.72rem;
+      font-size: 1.1rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       animation: bounce 2s infinite;
@@ -224,13 +224,13 @@
  
     .stat-item .num {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: var(--primary);
     }
  
     .stat-item .label {
-      font-size: 0.8rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: rgba(63,59,35,0.65);
       letter-spacing: 1px;
@@ -247,7 +247,7 @@
     }
  
     .section-label {
-      font-size: 0.72rem;
+      font-size: 1.3rem;
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -389,7 +389,7 @@
  
     .feature-card p {
       color: var(--text-muted);
-      font-size: 0.93rem;
+      font-size: 1.2rem;
       line-height: 1.65;
     }
  
