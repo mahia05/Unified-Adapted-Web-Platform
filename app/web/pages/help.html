@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,65 +16,65 @@
 
 <body>
 
-<!-- Navbar -->
-<header class="navbar">
-  <h2 class="logo">UAWP</h2>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="resource.html">Resources</a>
-  </nav>
-</header>
+  <!-- Navbar -->
+  <header class="navbar">
+    <h2 class="logo">UAWP</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="resource.html">Resources</a>
+    </nav>
+  </header>
 
-<!-- Help Section -->
-<section class="form-section">
+  <!-- Help Section -->
+  <section class="form-section">
 
-  <h1>Request Help</h1>
-  <p class="subtitle">Fill the form below and we will connect you with the right support.</p>
+    <h1>Request Help</h1>
+    <p class="subtitle">Fill the form below and we will connect you with the right support.</p>
 
-  <form id="helpForm">
+    <form id="helpForm">
 
-    <!-- Step 1 -->
-    <label>Full Name</label>
-    <input type="text" placeholder="Enter your name" required>
+      <!-- Step 1 -->
+      <label>Full Name</label>
+      <input type="text" placeholder="Enter your name" required>
 
-    <label>Email</label>
-    <input type="email" placeholder="Enter your email" required>
+      <label>Email</label>
+      <input type="email" placeholder="Enter your email" required>
 
-    <!-- Step 2 -->
-    <label>Type of Help</label>
-    <select required>
-      <option value="">Select type</option>
-      <option>Medical Support</option>
-      <option>Educational Support</option>
-      <option>Financial Help</option>
-      <option>Assistive Device</option>
-    </select>
+      <!-- Step 2 -->
+      <label>Type of Help</label>
+      <select name="helpType" required>
+        <option value="">Select type</option>
+        <option value="Medical Support">Medical Support</option>
+        <option value="Educational Support">Educational Support</option>
+        <option value="Financial Help">Financial Help</option>
+        <option value="Assistive Device">Assistive Device</option>
+      </select>
 
-    <!-- Step 3 -->
-    <label>Urgency Level</label>
-    <select required>
-      <option value="">Select urgency</option>
-      <option>Low</option>
-      <option>Medium</option>
-      <option>High</option>
-    </select>
+      <!-- Step 3 -->
+      <label>Urgency Level</label>
+      <select name="urgency" required>
+        <option value="">Select urgency</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
 
-    <!-- Step 4 -->
-    <label>Describe Your Need</label>
-    <textarea placeholder="Explain your situation clearly..." required></textarea>
+      <!-- Step 4 -->
+      <label>Describe Your Need</label>
+      <textarea placeholder="Explain your situation clearly..." required></textarea>
 
-    <!-- Step 5 -->
-    <label>Phone Number</label>
-    <input type="text" placeholder="Enter phone number">
+      <!-- Step 5 -->
+      <label>Phone Number</label>
+      <input type="text" placeholder="Enter phone number">
 
-    <button type="submit">Submit Request</button>
+      <button type="submit">Submit Request</button>
 
-  </form>
+    </form>
 
-</section>
-<script src="../js/help.js"></script>
+  </section>
+  <script src="../js/help.js"></script>
 
-<!--<script>
+  <!--<script>
 document.getElementById("helpForm").addEventListener("submit", function(e){
   e.preventDefault();
   alert("Your request has been submitted!");
@@ -82,4 +83,5 @@ document.getElementById("helpForm").addEventListener("submit", function(e){
 </script>!-->
 
 </body>
+
 </html>
