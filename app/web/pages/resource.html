@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UAWP Resources</title>
-
+    <title>UAWP - Resources</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="../css/resource.css">
@@ -13,131 +12,88 @@
 
 <body>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo">UAWP</div>
-
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="resource.html" class="active">Resources</a></li>
             <li><a href="help.html">Help Request</a></li>
             <li><a href="success.html">Success Stories</a></li>
         </ul>
-
     </nav>
 
-    <!-- HERO -->
     <section class="resource-hero">
         <h1>Accessible & Inclusive Resources</h1>
-        <p>Verified hospitals, therapy centers, NGOs, and schools designed for everyone.</p>
+        <p>Verified hospitals, therapy centers, NGOs & schools — filtered by country and disability type.</p>
     </section>
 
-    <!-- SEARCH & FILTER -->
-    <div class="search-filter">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search resources...">
-            <i class='bx bx-search'></i>
+    <div class="filter-section">
+        <div class="filter-row">
+            <label>Search</label>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by name or city...">
+                <i class='bx bx-search'></i>
+            </div>
         </div>
-        <div class="filter-buttons">
-            <button data-filter="all">All</button>
-            <button data-filter="Hospital">Hospitals</button>
-            <button data-filter="NGO">NGOs</button>
-            <button data-filter="Therapy">Therapy Centers</button>
-            <button data-filter="School">Schools</button>
+        <div class="filter-row">
+            <label>Country</label>
+            <div class="filter-pills" id="countryFilters">
+                <button class="pill active" data-country="all">All Countries</button>
+                <button class="pill" data-country="Bangladesh">Bangladesh</button>
+                <button class="pill" data-country="India">India</button>
+                <button class="pill" data-country="USA">USA</button>
+                <button class="pill" data-country="UK">UK</button>
+                <button class="pill" data-country="Canada">Canada</button>
+                <button class="pill" data-country="Australia">Australia</button>
+                <button class="pill" data-country="Germany">Germany</button>
+            </div>
+        </div>
+        <div class="filter-row">
+            <label>Disability</label>
+            <div class="filter-pills" id="disabilityFilters">
+                <button class="pill active" data-dis="all">All</button>
+                <button class="pill motor" data-dis="Motor">Motor</button>
+                <button class="pill cognitive" data-dis="Cognitive">Cognitive</button>
+                <button class="pill both" data-dis="Both">Both</button>
+            </div>
+        </div>
+        <div class="filter-row">
+            <label>Category</label>
+            <div class="filter-pills" id="categoryFilters">
+                <button class="pill active" data-cat="all">All</button>
+                <button class="pill" data-cat="Hospital">Hospital</button>
+                <button class="pill" data-cat="NGO">NGO</button>
+                <button class="pill" data-cat="Therapy">Therapy</button>
+                <button class="pill" data-cat="School">School</button>
+                <button class="pill" data-cat="Government">Government</button>
+            </div>
         </div>
     </div>
 
-    <!-- RESOURCE GRID -->
+    <div class="results-count"><span id="resultCount"></span></div>
+
     <section class="resource-container">
-        <div class="resource-grid">
-
-            <!-- CARD 1 -->
-            <div class="resource-card card1" data-name="City Hospital" data-category="Hospital"
-                data-location="Sylhet, Bangladesh" data-phone="+880123456789"
-                data-description="24/7 service specialized in motor and cognitive disabilities support.">
-                <div class="card-icon">
-                    <i class='fas fa-hospital'></i>
-                </div>
-                <h3 class="resource-title">City Hospital</h3>
-                <p>24/7 service, specialized in motor & cognitive disabilities support.</p>
-                <span class="category">Hospital</span>
-                <button class="view-btn">
-                    View <i class='bx bx-right-arrow-alt arrow'></i>
-                </button>
-            </div>
-
-            <!-- CARD 2 -->
-            <div class="resource-card card2" data-name="CareNGO" data-category="NGO" data-location="Dhaka, Bangladesh"
-                data-phone="+880987654321" data-description="Support programs for children with learning disabilities.">
-                <div class="card-icon">
-                    <i class='bx bxs-group'></i>
-                </div>
-                <h3 class="resource-title">CareNGO</h3>
-                <p>Support programs for children with learning disabilities.</p>
-                <span class="category">NGO</span>
-                <button class="view-btn">
-                    View <i class='bx bx-right-arrow-alt arrow'></i>
-                </button>
-            </div>
-
-            <!-- CARD 3 -->
-            <div class="resource-card card3" data-name="Bright Minds School" data-category="School"
-                data-location="Chittagong" data-phone="+880111222333">
-                <div class="card-icon">
-                    <i class='fas fa-chalkboard-teacher'></i>
-                </div>
-                <h3 class="resource-title">Bright Minds School</h3>
-                <p>Inclusive education for cognitive & developmental disabilities.</p>
-                <span class="category">School</span>
-                <button class="view-btn">
-                    View <i class='bx bx-right-arrow-alt arrow'></i>
-                </button>
-            </div>
-
-            <!-- CARD 4 -->
-            <div class="resource-card card4" data-name="Therapy Center" data-category="Therapy" data-location="Sylhet"
-                data-phone="+880444555666">
-                <div class="card-icon">
-                    <i class='bx bxs-clinic'></i>
-                </div>
-                <h3 class="resource-title">Therapy Center</h3>
-                <p>Occupational & physical therapy for motor disabilities.</p>
-                <span class="category">Therapy</span>
-                <button class="view-btn">
-                    View <i class='bx bx-right-arrow-alt arrow'></i>
-                </button>
-            </div>
-
-        </div>
+        <div class="resource-grid" id="cardGrid"></div>
     </section>
-    <!--Modal (popup) HTML -->
-    <div id="resourceModal" class="modal">
 
+    <!-- MODAL -->
+    <div id="resourceModal" class="modal-bg">
         <div class="modal-content">
-
-            <span class="close-btn">&times;</span>
-
-            <h2 id="modalName"></h2>
-
-            <p><strong>Category:</strong> <span id="modalCategory"></span></p>
-
-            <p><strong>Location:</strong> <span id="modalLocation"></span></p>
-
-            <p><strong>Phone:</strong> <span id="modalPhone"></span></p>
-
-            <p id="modalDescription"></p>
-
+            <span class="close-btn" id="modalClose">&times;</span>
+            <div class="modal-header">
+                <div class="modal-icon" id="mIcon"></div>
+                <div class="modal-title">
+                    <h2 id="mName"></h2>
+                    <div class="modal-badges" id="mBadges"></div>
+                </div>
+            </div>
+            <div class="modal-body" id="mBody"></div>
         </div>
-
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        © 2026 UAWP - Unified Adaptive Web Platform
-    </footer>
+    <footer class="footer">© 2026 UAWP - Unified Adaptive Web Platform</footer>
 
     <script src="../js/resource.js"></script>
-
 </body>
 
 </html>

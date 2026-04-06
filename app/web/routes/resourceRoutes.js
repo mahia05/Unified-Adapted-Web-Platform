@@ -1,15 +1,9 @@
 import express from "express";
 const router = express.Router();
+import { getResources, addResource, deleteResource } from "../controllers/resourceController.js";
 
-import {
-    getResources,
-    addResource
-} from "../controllers/resourceController.js";
-
-// GET all resources
 router.get("/", getResources);
-
-// ADD new resource
 router.post("/", addResource);
+router.delete("/:id", deleteResource);
 
 export default router;
