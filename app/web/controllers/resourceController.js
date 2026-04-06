@@ -1,7 +1,7 @@
-const Resource = require("../../../database/models/resourceModel");
+import Resource from "../../../database/models/resourceModel.js";
 
 // GET all resources
-exports.getResources = async (req, res) => {
+export const getResources = async (req, res) => {
     try {
         const resources = await Resource.find();
         res.json(resources);
@@ -10,8 +10,8 @@ exports.getResources = async (req, res) => {
     }
 };
 
-// ADD resource (for testing এখন)
-exports.addResource = async (req, res) => {
+// ADD resource
+export const addResource = async (req, res) => {
     try {
         const newResource = new Resource(req.body);
         await newResource.save();

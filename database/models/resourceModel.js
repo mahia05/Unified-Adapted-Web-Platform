@@ -1,25 +1,17 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const resourceSchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true
     },
-    category: {
-        type: String,
-        enum: ["Hospital", "NGO", "Therapy", "School"],
-        required: true
-    },
-    location: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: String
-    },
-    description: {
-        type: String
-    }
-}, { timestamps: true });
+    description: String,
+    link: String,
+    category: String
+}, {
+    timestamps: true
+});
 
-module.exports = mongoose.model("Resource", resourceSchema);
+const Resource = mongoose.model("Resource", resourceSchema);
+
+export default Resource;

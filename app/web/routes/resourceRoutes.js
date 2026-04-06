@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const {
+import {
     getResources,
     addResource
-} = require("../controllers/resourceController");
+} from "../controllers/resourceController.js";
 
-// GET
+// GET all resources
 router.get("/", getResources);
 
-// POST
+// ADD new resource
 router.post("/", addResource);
 
-module.exports = router;
+export default router;
