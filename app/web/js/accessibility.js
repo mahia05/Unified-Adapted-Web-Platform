@@ -38,3 +38,27 @@ let fontLevel = 0;
     }, { threshold: 0.1 });
  
     document.querySelectorAll('.feature-card, .stat-item').forEach(el => observer.observe(el));
+
+    /*login signup*/
+
+window.onload = function () {
+  document.getElementById('authModal').style.display = 'flex';
+}
+
+function showTab(tab) {
+  // Forms toggle
+  document.getElementById('loginTab').style.display = 
+    tab === 'login' ? 'block' : 'none';
+  document.getElementById('signupTab').style.display = 
+    tab === 'signup' ? 'block' : 'none';
+
+  // Tab button active state
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', 
+      (tab === 'login' && i === 0) || (tab === 'signup' && i === 1));
+  });
+}
+
+function closeModal() {
+  document.getElementById('authModal').style.display = 'none';
+}

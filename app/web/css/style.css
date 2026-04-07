@@ -16,7 +16,8 @@
       color: var(--primary);
       overflow-x: hidden;
     }
- 
+   
+
     /* ── NAVBAR ── */
     .navbar {
       position: fixed;
