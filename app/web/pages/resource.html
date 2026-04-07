@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UAWP - Resources</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <title>UAWP — Resources</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/resource.css">
 </head>
 
 <body>
 
     <nav class="navbar">
-        <div class="logo">UAWP</div>
+        <a class="logo" href="index.html">UAWP</a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="resource.html" class="active">Resources</a></li>
@@ -23,16 +25,20 @@
     </nav>
 
     <section class="resource-hero">
-        <h1>Accessible & Inclusive Resources</h1>
-        <p>Verified hospitals, therapy centers, NGOs & schools — filtered by country and disability type.</p>
+        <div class="hero-eyebrow">
+            <i class="fas fa-globe"></i>
+            Verified Global Directory
+        </div>
+        <h1>Find the <em>right support</em>,<br>wherever you are.</h1>
+        <p>Hospitals, therapy centres, NGOs & schools — filtered by country, disability type, and category.</p>
     </section>
 
     <div class="filter-section">
         <div class="filter-row">
             <label>Search</label>
             <div class="search-box">
+                <i class="fas fa-magnifying-glass"></i>
                 <input type="text" id="searchInput" placeholder="Search by name or city...">
-                <i class='bx bx-search'></i>
             </div>
         </div>
         <div class="filter-row">
@@ -79,19 +85,22 @@
     <!-- MODAL -->
     <div id="resourceModal" class="modal-bg">
         <div class="modal-content">
-            <span class="close-btn" id="modalClose">&times;</span>
-            <div class="modal-header">
-                <div class="modal-icon" id="mIcon"></div>
-                <div class="modal-title">
-                    <h2 id="mName"></h2>
-                    <div class="modal-badges" id="mBadges"></div>
+            <div class="modal-top-strip"></div>
+            <div class="modal-inner">
+                <span class="close-btn" id="modalClose"><i class="fas fa-xmark"></i></span>
+                <div class="modal-header">
+                    <div class="modal-icon" id="mIcon"></div>
+                    <div class="modal-title">
+                        <h2 id="mName"></h2>
+                        <div class="modal-badges" id="mBadges"></div>
+                    </div>
                 </div>
+                <div class="modal-body" id="mBody"></div>
             </div>
-            <div class="modal-body" id="mBody"></div>
         </div>
     </div>
 
-    <footer class="footer">© 2026 UAWP - Unified Adaptive Web Platform</footer>
+    <footer class="footer">© 2026 UAWP — Unified Adaptive Web Platform &nbsp;·&nbsp; InclusionHub</footer>
 
     <script src="../js/resource.js"></script>
 </body>

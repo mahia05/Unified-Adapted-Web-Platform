@@ -1,52 +1,71 @@
-// ─── DATA ───────────────────────────────────────────────────────────────────
-// Static fallback data — replace with API fetch when backend is ready
+// ─── DATA ────────────────────────────────────────────────────────────────────
 const resources = [
     // BANGLADESH
-    { name: "City General Hospital", category: "Hospital", disabilityType: "Motor", country: "Bangladesh", city: "Sylhet", phone: "+880-821-123456", email: "info@cityhosp.bd", website: "cityhosp.bd", address: "Zindabazar, Sylhet", description: "24/7 specialized motor disability support, physiotherapy units, and fully accessible wards and facilities." },
-    { name: "CareNGO Bangladesh", category: "NGO", disabilityType: "Cognitive", country: "Bangladesh", city: "Dhaka", phone: "+880-2-9876543", email: "care@carengodb.org", website: "carengodb.org", address: "Dhanmondi, Dhaka", description: "Support programs for children with cognitive and learning disabilities, including home visits and family counseling." },
-    { name: "Bright Minds Inclusive School", category: "School", disabilityType: "Both", country: "Bangladesh", city: "Chittagong", phone: "+880-31-111222", email: "admissions@brightminds.edu.bd", address: "Agrabad, Chittagong", description: "Inclusive education for motor and cognitive disabilities with trained special educators and adapted curriculum." },
-    { name: "MoveWell Therapy Center", category: "Therapy", disabilityType: "Motor", country: "Bangladesh", city: "Sylhet", phone: "+880-821-445566", email: "movewell@therapy.bd", address: "Ambarkhana, Sylhet", description: "Occupational and physical therapy for motor disabilities, post-stroke rehabilitation and assistive device training." },
-    { name: "NDRB - Govt. Disability Registry", category: "Government", disabilityType: "Both", country: "Bangladesh", city: "Dhaka", phone: "+880-2-9551234", website: "ndrb.gov.bd", address: "Segunbagicha, Dhaka", description: "National government registry providing disability ID cards, benefits and social protection services." },
+    { name: "National Institute of Traumatology & Orthopaedic Rehabilitation (NITOR)", category: "Hospital", disabilityType: "Motor", country: "Bangladesh", city: "Dhaka", phone: "+880-2-9665048", website: "https://nitor.gov.bd", address: "Sher-E-Bangla Nagar, Dhaka-1207", description: "Bangladesh's premier government hospital for orthopaedic and motor disability treatment, prosthetics, and post-surgical rehabilitation." },
+    { name: "Centre for the Rehabilitation of the Paralysed (CRP)", category: "Therapy", disabilityType: "Motor", country: "Bangladesh", city: "Savar, Dhaka", phone: "+880-2-7791312", email: "info@crp-bangladesh.org", website: "https://crp-bangladesh.org", address: "Chapain, Savar, Dhaka-1343", description: "Internationally recognized rehabilitation centre offering physiotherapy, occupational therapy, and community-based support for physically disabled individuals." },
+    { name: "National Academy for Autism & Neurodevelopmental Disabilities (NAAND)", category: "School", disabilityType: "Cognitive", country: "Bangladesh", city: "Dhaka", phone: "+880-2-9671003", website: "https://naand.gov.bd", address: "Mirpur-14, Dhaka-1206", description: "Government academy providing specialized education and therapeutic services for children with autism and other neurodevelopmental conditions." },
+    { name: "Jatiyo Protibandhi Unnayan Foundation (JPUF)", category: "Government", disabilityType: "Both", country: "Bangladesh", city: "Dhaka", phone: "+880-2-9130869", website: "https://jpuf.gov.bd", address: "Mirpur-14, Dhaka-1206", description: "National government foundation overseeing disability welfare, allowance programs, disability ID cards, and rehabilitation services across Bangladesh." },
+    { name: "Society for the Welfare of Intellectually Disabled Bangladesh (SWID)", category: "NGO", disabilityType: "Cognitive", country: "Bangladesh", city: "Dhaka", phone: "+880-2-9884830", email: "swidbd@gmail.com", address: "House 9, Road 3A, Dhanmondi, Dhaka-1205", description: "Non-profit providing education, therapy, and vocational training for children and adults with intellectual and cognitive disabilities." },
+    { name: "Protibandhi Unnayan Sangstha (PUS)", category: "NGO", disabilityType: "Both", country: "Bangladesh", city: "Dhaka", phone: "+880-2-8117051", email: "pus@pusbd.org", address: "House 7, Road 4, Dhanmondi, Dhaka-1205", description: "NGO providing education, vocational training, and community support for persons with motor and cognitive disabilities across Bangladesh." },
+    { name: "Sylhet MAG Osmani Medical College — Physical Medicine Dept.", category: "Hospital", disabilityType: "Motor", country: "Bangladesh", city: "Sylhet", phone: "+880-821-716476", website: "https://somc.gov.bd", address: "Osmani Medical College Road, Sylhet-3100", description: "Major public hospital in Sylhet with a dedicated physical medicine and rehabilitation department for motor disability patients." },
 
     // INDIA
-    { name: "NIMHANS", category: "Hospital", disabilityType: "Cognitive", country: "India", city: "Bangalore", phone: "+91-80-46110007", email: "info@nimhans.ac.in", website: "nimhans.ac.in", address: "Hosur Road, Bangalore", description: "Premier institute for neurology, psychiatry and cognitive disability care in South Asia." },
-    { name: "Enable India", category: "NGO", disabilityType: "Both", country: "India", city: "Bangalore", phone: "+91-80-25282136", email: "connect@enableindia.org", website: "enableindia.org", address: "Indiranagar, Bangalore", description: "Empowers persons with disabilities through livelihood programs and accessible education." },
-    { name: "AADI School Delhi", category: "School", disabilityType: "Both", country: "India", city: "Delhi", phone: "+91-11-26104823", website: "aadi.ac.in", address: "Pamposh Enclave, Delhi", description: "Action for Ability Development & Inclusion — school and therapy services for children with disabilities." },
-    { name: "Rajiv Gandhi Foundation", category: "NGO", disabilityType: "Motor", country: "India", city: "Delhi", phone: "+91-11-23013948", website: "rajivgandhifoundation.com", address: "Jawahar Bhawan, Delhi", description: "Disability rehabilitation and accessible sports programs across India." },
+    { name: "NIMHANS — National Institute of Mental Health & Neurosciences", category: "Hospital", disabilityType: "Cognitive", country: "India", city: "Bengaluru", phone: "+91-80-46110007", email: "nimhans@nimhans.ac.in", website: "https://nimhans.ac.in", address: "Hosur Road, Bengaluru-560029", description: "India's top institute for neurology, psychiatry, and cognitive disability care, offering advanced diagnostics, therapy, and world-class research." },
+    { name: "Enable India", category: "NGO", disabilityType: "Both", country: "India", city: "Bengaluru", phone: "+91-80-25282136", email: "connect@enableindia.org", website: "https://enableindia.org", address: "Indiranagar, Bengaluru-560038", description: "Empowers persons with disabilities through sustainable livelihood programs, skill training, and accessible education across India." },
+    { name: "AADI — Action for Ability Development & Inclusion", category: "School", disabilityType: "Both", country: "India", city: "New Delhi", phone: "+91-11-26104823", website: "https://aadi.ac.in", address: "Pamposh Enclave, New Delhi-110048", description: "School and therapy centre offering inclusive education and rehabilitation services for children with multiple disabilities." },
+    { name: "Spastics Society of India (The Able Foundation)", category: "Therapy", disabilityType: "Motor", country: "India", city: "Mumbai", phone: "+91-22-26366529", website: "https://theablefoundation.in", address: "Bandra (W), Mumbai-400050", description: "Provides physiotherapy, occupational therapy, and community rehabilitation for individuals with cerebral palsy and other motor disabilities." },
+    { name: "Asha Kiran — Delhi Govt. Home for Disabled", category: "Government", disabilityType: "Cognitive", country: "India", city: "New Delhi", phone: "+91-11-22117851", address: "Rohini Sector 1, New Delhi-110085", description: "Delhi government's residential facility providing care, education, and vocational training for persons with intellectual disabilities." },
 
     // USA
-    { name: "Easter Seals", category: "NGO", disabilityType: "Both", country: "USA", city: "Chicago", phone: "+1-800-221-6827", website: "easterseals.com", address: "233 S. Wacker Drive, Chicago", description: "Provides comprehensive services for children and adults with disabilities across the United States." },
-    { name: "Shirley Ryan AbilityLab", category: "Therapy", disabilityType: "Motor", country: "USA", city: "Chicago", phone: "+1-312-238-1000", website: "sralab.org", address: "355 E Erie St, Chicago", description: "World-leading motor rehabilitation research and therapy facility with cutting-edge technology." },
-    { name: "Kennedy Krieger Institute", category: "Hospital", disabilityType: "Cognitive", country: "USA", city: "Baltimore", phone: "+1-443-923-9200", website: "kennedykrieger.org", address: "707 N Broadway, Baltimore", description: "Internationally recognized for treating and researching cognitive and developmental disabilities in children." },
+    { name: "Shirley Ryan AbilityLab", category: "Therapy", disabilityType: "Motor", country: "USA", city: "Chicago, IL", phone: "+1-312-238-1000", website: "https://sralab.org", address: "355 E Erie St, Chicago, IL 60611", description: "World-leading motor rehabilitation research and therapy facility using cutting-edge technology for stroke, spinal injury, and neurological recovery." },
+    { name: "Kennedy Krieger Institute", category: "Hospital", disabilityType: "Cognitive", country: "USA", city: "Baltimore, MD", phone: "+1-443-923-9200", website: "https://kennedykrieger.org", address: "707 N Broadway, Baltimore, MD 21205", description: "Internationally recognized for diagnosing and treating cognitive, neurodevelopmental, and learning disabilities in children and adolescents." },
+    { name: "Easter Seals", category: "NGO", disabilityType: "Both", country: "USA", city: "Chicago, IL", phone: "+1-800-221-6827", website: "https://easterseals.com", address: "141 W Jackson Blvd, Chicago, IL 60604", description: "Provides comprehensive services including therapy, employment support, and inclusive childcare for people with all types of disabilities nationwide." },
+    { name: "United Cerebral Palsy (UCP)", category: "NGO", disabilityType: "Motor", country: "USA", city: "Washington, DC", phone: "+1-202-776-0406", website: "https://ucp.org", address: "1825 K St NW, Washington, DC 20006", description: "National network providing motor rehabilitation, assistive technology, housing, and advocacy for people with cerebral palsy and similar conditions." },
+    { name: "VSA — Kennedy Center Arts & Disability", category: "Government", disabilityType: "Cognitive", country: "USA", city: "Washington, DC", phone: "+1-202-467-4600", website: "https://kennedy-center.org/education/vsa", address: "2700 F St NW, Washington, DC 20566", description: "Provides arts education and employment programs for people with cognitive and developmental disabilities, with chapters across all 50 states." },
 
     // UK
-    { name: "Ambitious About Autism", category: "NGO", disabilityType: "Cognitive", country: "UK", city: "London", phone: "+44-20-8815-5444", website: "ambitiousaboutautism.org.uk", address: "Woodside Avenue, London", description: "National charity supporting autistic children and young people across the United Kingdom." },
-    { name: "Scope UK", category: "NGO", disabilityType: "Motor", country: "UK", city: "London", phone: "+44-808-800-3333", website: "scope.org.uk", address: "6 Market Road, London", description: "UK charity providing support and information to disabled people and their families nationwide." },
-    { name: "The National Brain Appeal", category: "Hospital", disabilityType: "Both", country: "UK", city: "London", phone: "+44-20-3448-4744", website: "nationalbrainappeal.org", address: "Box 123, The National Hospital, London", description: "Fundraising and support for motor and cognitive neurological conditions at the UK's top hospital." },
+    { name: "The National Hospital for Neurology and Neurosurgery", category: "Hospital", disabilityType: "Both", country: "UK", city: "London", phone: "+44-20-3456-7890", website: "https://uclh.nhs.uk", address: "Queen Square, London WC1N 3BG", description: "The UK's leading specialist hospital for neurological conditions affecting both motor and cognitive function, part of University College London Hospitals NHS." },
+    { name: "Scope UK", category: "NGO", disabilityType: "Motor", country: "UK", city: "London", phone: "+44-808-800-3333", website: "https://scope.org.uk", address: "6 Market Road, London N7 9PW", description: "National charity providing support, information, and advocacy for disabled people and their families, focused on equality for people with motor disabilities." },
+    { name: "Ambitious About Autism", category: "NGO", disabilityType: "Cognitive", country: "UK", city: "London", phone: "+44-20-8815-5444", website: "https://ambitiousaboutautism.org.uk", address: "Woodside Avenue, London N10 3JA", description: "National charity running specialist schools, campaigning for rights, and supporting autistic children and young people across the UK." },
+    { name: "TreeHouse School — Ambitious About Autism", category: "School", disabilityType: "Cognitive", country: "UK", city: "London", phone: "+44-20-8815-5424", website: "https://ambitiousaboutautism.org.uk/treehouse-school", address: "Woodside Avenue, Muswell Hill, London N10 3JA", description: "Specialist school for autistic pupils aged 3–19, offering a tailored curriculum with speech and language therapy integrated into daily school life." },
 
     // CANADA
-    { name: "Holland Bloorview", category: "Hospital", disabilityType: "Both", country: "Canada", city: "Toronto", phone: "+1-416-425-6220", website: "hollandbloorview.ca", address: "150 Kilgour Road, Toronto", description: "Canada's largest pediatric rehabilitation hospital, specializing in childhood disability and family support." },
-    { name: "Autism Canada", category: "NGO", disabilityType: "Cognitive", country: "Canada", city: "National", phone: "+1-800-983-1795", website: "autismcanada.org", description: "National organization connecting families with cognitive and autism resources across Canada." },
-    { name: "March of Dimes Canada", category: "NGO", disabilityType: "Motor", country: "Canada", city: "Toronto", phone: "+1-800-263-3463", website: "marchofdimes.ca", address: "10 Overlea Blvd, Toronto", description: "Supporting independence for Canadians with physical disabilities through programs and advocacy." },
+    { name: "Holland Bloorview Kids Rehabilitation Hospital", category: "Hospital", disabilityType: "Both", country: "Canada", city: "Toronto, ON", phone: "+1-416-425-6220", website: "https://hollandbloorview.ca", address: "150 Kilgour Road, Toronto, ON M4G 1R8", description: "Canada's largest pediatric rehabilitation hospital, specializing in childhood disability, brain injury, cerebral palsy, and family support services." },
+    { name: "March of Dimes Canada", category: "NGO", disabilityType: "Motor", country: "Canada", city: "Toronto, ON", phone: "+1-800-263-3463", website: "https://marchofdimes.ca", address: "10 Overlea Blvd, Toronto, ON M4H 1A4", description: "Supporting independence for Canadians with physical disabilities through attendant services, accessible housing, employment, and advocacy." },
+    { name: "Autism Canada", category: "NGO", disabilityType: "Cognitive", country: "Canada", city: "National", phone: "+1-800-983-1795", website: "https://autismcanada.org", address: "P.O. Box 65, Bothwell, ON N0P 1C0", description: "National organization connecting families and individuals with autism to resources, research, and support services across all Canadian provinces." },
+    { name: "Sunny Hill Health Centre — BC Children's Hospital", category: "Therapy", disabilityType: "Both", country: "Canada", city: "Vancouver, BC", phone: "+1-604-453-8300", website: "https://bcchildrens.ca", address: "4500 Oak St, Vancouver, BC V6H 3N1", description: "Provides rehabilitation therapy including physiotherapy, occupational therapy, and speech therapy for children with complex developmental disabilities." },
 
     // AUSTRALIA
-    { name: "Cerebral Palsy Alliance", category: "Therapy", disabilityType: "Motor", country: "Australia", city: "Sydney", phone: "+61-2-9975-8000", website: "cerebralpalsy.org.au", address: "Allambie Heights, Sydney", description: "Leading provider of disability services, therapy and research for people with motor disabilities." },
-    { name: "Autism Spectrum Australia", category: "NGO", disabilityType: "Cognitive", country: "Australia", city: "Sydney", phone: "+61-1800-277-328", website: "autismspectrum.org.au", address: "Frenchs Forest, Sydney", description: "Specialist autism services for people of all ages across Australia." },
+    { name: "Cerebral Palsy Alliance", category: "Therapy", disabilityType: "Motor", country: "Australia", city: "Sydney, NSW", phone: "+61-1800-654-013", website: "https://cerebralpalsy.org.au", address: "166 Hawkesbury Road, Westmead, NSW 2145", description: "Australia's largest non-government provider of disability services, therapy, and research for people with cerebral palsy and similar motor disabilities." },
+    { name: "Autism Spectrum Australia (Aspect)", category: "NGO", disabilityType: "Cognitive", country: "Australia", city: "Sydney, NSW", phone: "+61-1800-277-328", website: "https://autismspectrum.org.au", address: "14 Aquatic Drive, Frenchs Forest, NSW 2086", description: "Australia's largest autism-specific service provider, offering education, therapy, behaviour support, and employment programs across the country." },
+    { name: "Royal Rehab", category: "Hospital", disabilityType: "Motor", country: "Australia", city: "Sydney, NSW", phone: "+61-2-9808-9200", website: "https://royalrehab.com.au", address: "235 Morrison Road, Ryde, NSW 2112", description: "Leading rehabilitation hospital providing specialist services for spinal cord injury, brain injury, stroke, and complex motor disability recovery." },
+    { name: "NDIS — National Disability Insurance Scheme", category: "Government", disabilityType: "Both", country: "Australia", city: "National", phone: "+61-1800-800-110", website: "https://ndis.gov.au", address: "GPO Box 700, Canberra, ACT 2601", description: "Australia's national scheme providing funding for support and services to Australians with permanent and significant motor, cognitive, or other disabilities." },
 
     // GERMANY
-    { name: "Lebenshilfe Germany", category: "NGO", disabilityType: "Cognitive", country: "Germany", city: "Berlin", phone: "+49-228-853-800", website: "lebenshilfe.de", address: "Raiffeisenstrasse 18, Berlin", description: "Germany's largest NGO for people with cognitive disabilities, offering education and care services." },
-    { name: "BDH Bundesverband", category: "Therapy", disabilityType: "Motor", country: "Germany", city: "Bonn", phone: "+49-228-26950", website: "bdh.de", address: "Hilpertstrasse 31, Bonn", description: "Neurological rehabilitation centers across Germany specializing in motor disability recovery." }
+    { name: "Lebenshilfe Germany", category: "NGO", disabilityType: "Cognitive", country: "Germany", city: "Berlin", phone: "+49-30-206411-0", website: "https://lebenshilfe.de", address: "Raiffeisenstraße 18, 10367 Berlin", description: "Germany's largest organization for people with intellectual and cognitive disabilities, offering education, residential care, and community integration services." },
+    { name: "BDH Bundesverband Rehabilitation", category: "Therapy", disabilityType: "Motor", country: "Germany", city: "Bonn", phone: "+49-228-26950", website: "https://bdh-reha.de", address: "Weberstraße 2-4, 53113 Bonn", description: "National association operating neurological rehabilitation centres across Germany, specializing in motor disability recovery after stroke and brain injury." },
+    { name: "Charité — Neurological Rehabilitation Centre", category: "Hospital", disabilityType: "Both", country: "Germany", city: "Berlin", phone: "+49-30-450-560-222", website: "https://charite.de", address: "Charitéplatz 1, 10117 Berlin", description: "One of Europe's largest university hospitals, offering world-class neurological rehabilitation for motor and cognitive disabilities." },
+    { name: "Aktion Mensch", category: "NGO", disabilityType: "Both", country: "Germany", city: "Bonn", phone: "+49-228-2092-0", website: "https://aktion-mensch.de", address: "Heinemannstraße 36, 53175 Bonn", description: "Germany's largest private disability organization, funding inclusion projects and providing resources for people with physical and cognitive disabilities." },
 ];
 
-// ─── ICONS & BADGE CLASSES ──────────────────────────────────────────────────
-const catIcons = { Hospital: "fa-hospital", NGO: "fa-hands-helping", Therapy: "fa-spa", School: "fa-chalkboard-teacher", Government: "fa-landmark" };
-const catBadgeClass = { Hospital: "badge-hospital", NGO: "badge-ngo", Therapy: "badge-therapy", School: "badge-school", Government: "badge-gov" };
+// ─── ICONS & CLASSES ─────────────────────────────────────────────────────────
+const catIcons = {
+    Hospital: "fa-hospital",
+    NGO: "fa-hands-holding-child",
+    Therapy: "fa-heart-pulse",
+    School: "fa-graduation-cap",
+    Government: "fa-landmark"
+};
+const catBadgeClass = {
+    Hospital: "badge-hospital", NGO: "badge-ngo", Therapy: "badge-therapy",
+    School: "badge-school", Government: "badge-government"
+};
 const disBadgeClass = { Motor: "badge-motor", Cognitive: "badge-cognitive", Both: "badge-both" };
 
-// ─── STATE ───────────────────────────────────────────────────────────────────
+// ─── STATE ────────────────────────────────────────────────────────────────────
 let activeCountry = "all", activeDis = "all", activeCat = "all", searchVal = "";
 
-// ─── RENDER CARDS ────────────────────────────────────────────────────────────
+// ─── RENDER ───────────────────────────────────────────────────────────────────
 function renderCards() {
     const grid = document.getElementById("cardGrid");
     const count = document.getElementById("resultCount");
@@ -55,70 +74,126 @@ function renderCards() {
         const matchC = activeCountry === "all" || r.country === activeCountry;
         const matchD = activeDis === "all" || r.disabilityType === activeDis;
         const matchCat = activeCat === "all" || r.category === activeCat;
-        const matchS = searchVal === "" || r.name.toLowerCase().includes(searchVal) || (r.city && r.city.toLowerCase().includes(searchVal));
+        const matchS = searchVal === "" ||
+            r.name.toLowerCase().includes(searchVal) ||
+            (r.city && r.city.toLowerCase().includes(searchVal));
         return matchC && matchD && matchCat && matchS;
     });
 
     count.textContent = `${filtered.length} resource${filtered.length !== 1 ? "s" : ""} found`;
 
-    if (filtered.length === 0) {
-        grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><p>No resources found. Try adjusting your filters.</p></div>`;
+    if (!filtered.length) {
+        grid.innerHTML = `<div class="no-results"><i class="fas fa-magnifying-glass"></i><p>No resources found. Try adjusting your filters.</p></div>`;
         return;
     }
 
     grid.innerHTML = filtered.map(r => {
-        const originalIndex = resources.indexOf(r);
+        const idx = resources.indexOf(r);
+        const desc = r.description.length > 95 ? r.description.substring(0, 95) + "…" : r.description;
         return `
-        <div class="resource-card dis-${r.disabilityType.toLowerCase()}" onclick="openModal(${originalIndex})">
-            <div class="card-top">
-                <div class="card-icon"><i class="fas ${catIcons[r.category] || 'fa-circle'}"></i></div>
-                <div class="card-badges">
-                    <span class="badge ${catBadgeClass[r.category] || ''}">${r.category}</span>
-                    <span class="badge ${disBadgeClass[r.disabilityType] || ''}">${r.disabilityType}</span>
+        <div class="resource-card" data-cat="${r.category}" onclick="openModal(${idx})">
+            <div class="card-strip"></div>
+            <div class="card-body">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas ${catIcons[r.category] || 'fa-circle'}"></i></div>
+                    <div class="card-badges">
+                        <span class="badge ${catBadgeClass[r.category] || ''}">${r.category}</span>
+                        <span class="badge ${disBadgeClass[r.disabilityType] || ''}">${r.disabilityType}</span>
+                    </div>
                 </div>
-            </div>
-            <h3>${r.name}</h3>
-            <p>${r.description.substring(0, 90)}...</p>
-            <div class="card-footer">
-                <span class="location-tag"><i class="fas fa-map-marker-alt"></i> ${r.city ? r.city + ", " : ""}${r.country}</span>
-                <button class="view-btn" onclick="event.stopPropagation(); openModal(${originalIndex})">
-                    View <i class="fas fa-arrow-right"></i>
-                </button>
+                <h3>${r.name}</h3>
+                <p>${desc}</p>
+                <div class="card-footer">
+                    <span class="location-tag"><i class="fas fa-location-dot"></i>${r.city ? r.city + ", " : ""}${r.country}</span>
+                    <button class="view-btn" onclick="event.stopPropagation();openModal(${idx})">Details <i class="fas fa-arrow-right"></i></button>
+                </div>
             </div>
         </div>`;
     }).join("");
 }
 
-// ─── OPEN MODAL ──────────────────────────────────────────────────────────────
+// ─── MODAL ────────────────────────────────────────────────────────────────────
+// Icon colors per category for modal strip
+const catStripColors = {
+    Hospital: "linear-gradient(90deg,#2563A8,#60A5FA)",
+    NGO: "linear-gradient(90deg,#B45309,#FBBF24)",
+    Therapy: "linear-gradient(90deg,#0E7A50,#34D399)",
+    School: "linear-gradient(90deg,#6D28D9,#A78BFA)",
+    Government: "linear-gradient(90deg,#B91C1C,#F87171)"
+};
+const catIconStyle = {
+    Hospital: "background:#DBEAFE;color:#2563A8;",
+    NGO: "background:#FEF3C7;color:#B45309;",
+    Therapy: "background:#D1FAE5;color:#0E7A50;",
+    School: "background:#EDE9FE;color:#6D28D9;",
+    Government: "background:#FEE2E2;color:#B91C1C;"
+};
+
 function openModal(idx) {
     const r = resources[idx];
+    const strip = document.getElementById("mTopStrip") || (() => {
+        const el = document.createElement("div");
+        el.id = "mTopStrip";
+        el.className = "modal-top-strip";
+        document.querySelector(".modal-content").prepend(el);
+        return el;
+    })();
+
+    // Strip color
+    document.querySelector(".modal-top-strip").style.background = catStripColors[r.category] || "#ccc";
+
+    // Icon
     document.getElementById("mIcon").innerHTML = `<i class="fas ${catIcons[r.category] || 'fa-circle'}"></i>`;
+    document.getElementById("mIcon").style.cssText = catIconStyle[r.category] || "";
+
     document.getElementById("mName").textContent = r.name;
     document.getElementById("mBadges").innerHTML = `
         <span class="badge ${catBadgeClass[r.category] || ''}">${r.category}</span>
         <span class="badge ${disBadgeClass[r.disabilityType] || ''}">${r.disabilityType}</span>
-        <span class="badge badge-country">🌍 ${r.country}</span>`;
+        <span class="badge badge-country">${r.country}</span>`;
 
     const loc = r.address || (r.city ? `${r.city}, ${r.country}` : r.country);
     const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc)}`;
 
     let body = "";
-    if (r.city) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-city"></i> City</span><span class="val">${r.city}</span></div>`;
-    if (r.address) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-map-marker-alt"></i> Address</span><span class="val"><a href="${mapsLink}" target="_blank">${r.address} <i class="fas fa-external-link-alt"></i></a></span></div>`;
-    if (r.phone) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-phone"></i> Phone</span><span class="val">${r.phone}</span></div>`;
-    if (r.email) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-envelope"></i> Email</span><span class="val"><a href="mailto:${r.email}">${r.email}</a></span></div>`;
-    if (r.website) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-globe"></i> Website</span><span class="val"><a href="https://${r.website}" target="_blank">${r.website} <i class="fas fa-external-link-alt"></i></a></span></div>`;
+    if (r.city) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-city"></i>City</span><span class="val">${r.city}</span></div>`;
+    if (r.address) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-location-dot"></i>Address</span><span class="val"><a href="${mapsLink}" target="_blank" rel="noopener">${r.address} <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;"></i></a></span></div>`;
+    if (r.phone) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-phone"></i>Phone</span><span class="val">${r.phone}</span></div>`;
+    if (r.email) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-envelope"></i>Email</span><span class="val"><a href="mailto:${r.email}">${r.email}</a></span></div>`;
+    if (r.website) body += `<div class="modal-row"><span class="lbl"><i class="fas fa-globe"></i>Website</span><span class="val"><a href="${r.website}" target="_blank" rel="noopener">${r.website.replace("https://", "")}<i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:4px;"></i></a></span></div>`;
     body += `<div class="modal-desc">${r.description}</div>`;
 
     document.getElementById("mBody").innerHTML = body;
+
+    // Wrap content in modal-inner if not already
+    const modal = document.querySelector(".modal-content");
+    let inner = modal.querySelector(".modal-inner");
+    if (!inner) {
+        inner = document.createElement("div");
+        inner.className = "modal-inner";
+        // Move everything except strip into inner
+        [...modal.children].forEach(child => {
+            if (!child.classList.contains("modal-top-strip")) inner.appendChild(child);
+        });
+        modal.appendChild(inner);
+    }
+
     document.getElementById("resourceModal").classList.add("open");
+    document.body.style.overflow = "hidden";
 }
 
-// ─── CLOSE MODAL ─────────────────────────────────────────────────────────────
-document.getElementById("modalClose").onclick = () => document.getElementById("resourceModal").classList.remove("open");
-document.getElementById("resourceModal").onclick = function (e) { if (e.target === this) this.classList.remove("open"); };
+function closeModal() {
+    document.getElementById("resourceModal").classList.remove("open");
+    document.body.style.overflow = "";
+}
 
-// ─── FILTER SETUP ────────────────────────────────────────────────────────────
+document.getElementById("modalClose").addEventListener("click", closeModal);
+document.getElementById("resourceModal").addEventListener("click", function (e) {
+    if (e.target === this) closeModal();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+// ─── FILTERS ─────────────────────────────────────────────────────────────────
 function setupPills(containerId, stateKey) {
     document.getElementById(containerId).querySelectorAll(".pill").forEach(btn => {
         btn.addEventListener("click", function () {
@@ -141,15 +216,5 @@ document.getElementById("searchInput").addEventListener("input", function () {
     renderCards();
 });
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 renderCards();
-
-// ─── API INTEGRATION (uncomment when backend ready) ──────────────────────────
-// async function fetchFromAPI() {
-//     const params = new URLSearchParams();
-//     if (activeCountry !== "all") params.append("country", activeCountry);
-//     if (activeDis !== "all") params.append("disabilityType", activeDis);
-//     if (activeCat !== "all") params.append("category", activeCat);
-//     const res = await fetch(`/api/resources?${params}`);
-//     return await res.json();
-// }
