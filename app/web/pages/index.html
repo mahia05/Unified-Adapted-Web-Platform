@@ -3,60 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UAWP - Home</title>
+ <title>UAWP - Unified Adaptive Web Platform</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/homepage.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!--<link rel="stylesheet" href="../css/homepage.css"> !-->
+ <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
-<!-- Navbar -->
-  <header class="navbar">
-    <h2 class="logo">UAWP</h2>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="resource.html">Resources</a>
-      <a href="help.html">Get Help</a>
-      <a href="success.html">Stories</a>
-    </nav>
-  </header>
+  <!--updated code-->
 
-  <!-- Hero Section -->
+   <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">UAWP</div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="resource.html">Resources</a></li>
+      <li><a href="help.html">Get Help</a></li>
+      <li><a href="success.html">Stories</a></li>
+    </ul>
+  </nav>
+ 
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-text">
-      <h1>Accessible Support for Everyone</h1>
-      <p>A simple and inclusive platform to find resources and request help easily.</p>
-      <div class="buttons">
-        <a href="resource.html" class="btn">Explore Resources</a>
-        <a href="help.html" class="btn secondary">Request Help</a>
+    <div class="hero-bg"></div>
+    <div class="hero-deco hero-deco-1"></div>
+    <div class="hero-deco hero-deco-2"></div>
+    <div class="hero-deco hero-deco-3"></div>
+ 
+    <div class="hero-content">
+      <div class="hero-badge">✦ Inclusive &nbsp;·&nbsp; Accessible &nbsp;·&nbsp; Empowering</div>
+      <h1>Accessible Support <span>for Everyone</span></h1>
+      <p>A simple, adaptive platform connecting people with disabilities to verified resources, help, and community.</p>
+      <div class="hero-buttons">
+        <a href="resource.html" class="btn btn-primary">
+          <i class='bx bx-search-alt-2'></i> Explore Resources
+        </a>
+        <a href="help.html" class="btn btn-outline">
+          <i class='bx bx-help-circle'></i> Request Help
+        </a>
       </div>
     </div>
-  </section>
-
-  <!-- Accessibility Controls -->
-  <section class="accessibility">
-    <h2>Accessibility Settings</h2>
-    <button onclick="increaseFont()">A+</button>
-    <button onclick="decreaseFont()">A-</button>
-    <button onclick="toggleContrast()">High Contrast</button>
-  </section>
-
-  <!-- Features -->
-  <section class="features">
-    <div class="card">
-      <h3>Resource Directory</h3>
-      <p>Find hospitals, NGOs, and support services easily.</p>
-    </div>
-
-    <div class="card">
-      <h3>Help Requests</h3>
-      <p>Submit your needs in a structured and simple way.</p>
-    </div>
-
-    <div class="card">
-      <h3>Success Stories</h3>
-      <p>Get inspired by real stories from users.</p>
+ 
+    <div class="hero-scroll">
+      <i class='bx bx-mouse'></i>
+      <span>Scroll</span>
     </div>
   </section>
+ 
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="num">50+</div>
+      <div class="label">Verified Resources</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">4</div>
+      <div class="label">Support Categories</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">24/7</div>
+      <div class="label">Available</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">100%</div>
+      <div class="label">Free Access</div>
+    </div>
+  </div>
+ 
+  <!-- ACCESSIBILITY CONTROLS -->
+  <section class="accessibility-section">
+    <p class="section-label">Accessibility</p>
+    <h2>Customize Your Experience</h2>
+    <div class="a11y-controls">
+      <button class="a11y-btn" onclick="changeFont(1)">
+        <i class='bx bx-font-size'></i> Increase Text
+      </button>
+      <button class="a11y-btn" onclick="changeFont(-1)">
+        <i class='bx bx-font-size'></i> Decrease Text
+      </button>
+      <button class="a11y-btn" id="contrastBtn" onclick="toggleContrast()">
+        <i class='bx bx-contrast'></i> High Contrast
+      </button>
+      <button class="a11y-btn" onclick="resetSettings()">
+        <i class='bx bx-reset'></i> Reset
+      </button>
+    </div>
+  </section>
+ 
+  <!-- FEATURES -->
+  <section class="features-section">
+    <div class="section-header">
+      <p class="section-label">What We Offer</p>
+      <h2>Everything You Need in One Place</h2>
+      <p>From finding hospitals to sharing your story — UAWP brings all support services under one roof.</p>
+    </div>
+ 
+    <div class="features-grid">
+ 
+      <div class="feature-card">
+        <div class="feature-icon"><i class='bx bx-buildings'></i></div>
+        <h3>Resource Directory</h3>
+        <p>Browse verified hospitals, NGOs, therapy centers, and schools. Filter by category or location for quick access.</p>
+        <a href="resource.html" class="card-link">Browse Resources <i class='bx bx-right-arrow-alt'></i></a>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-icon"><i class='bx bx-clipboard'></i></div>
+        <h3>Help Request System</h3>
+        <p>Submit structured help requests step by step. Our team and volunteers review and respond promptly.</p>
+        <a href="help.html" class="card-link">Request Help <i class='bx bx-right-arrow-alt'></i></a>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-icon"><i class='bx bx-trophy'></i></div>
+        <h3>Success Stories</h3>
+        <p>Read real stories from users who found support through UAWP. Share your own journey and inspire others.</p>
+        <a href="success.html" class="card-link">Read Stories <i class='bx bx-right-arrow-alt'></i></a>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-icon"><i class='bx bx-accessibility'></i></div>
+        <h3>Adaptive Interface</h3>
+        <p>Adjust font size, contrast, and layout to match your needs. Built for motor and cognitive accessibility.</p>
+        <a href="#" class="card-link">Learn More <i class='bx bx-right-arrow-alt'></i></a>
+      </div>
+ 
+    </div>
+  </section>
+ 
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <h2>Need Support Right Now?</h2>
+    <p>Don't wait — connect with verified resources or submit a help request in minutes.</p>
+    <div class="cta-buttons">
+      <a href="help.html" class="btn btn-primary">
+        <i class='bx bx-send'></i> Submit a Request
+      </a>
+      <a href="resource.html" class="btn btn-outline">
+        <i class='bx bx-map-pin'></i> Find Nearby Support
+      </a>
+    </div>
+  </section>
+ 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+ 
+      <div class="footer-brand">
+        <span class="logo">UAWP</span>
+        <p>Unified Adaptive Web Platform — promoting digital inclusion and reducing accessibility barriers for people with disabilities across Bangladesh.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon"><i class='bx bxl-facebook'></i></a>
+          <a href="#" class="social-icon"><i class='bx bxl-twitter'></i></a>
+          <a href="#" class="social-icon"><i class='bx bxl-linkedin'></i></a>
+          <a href="#" class="social-icon"><i class='bx bxl-github'></i></a>
+        </div>
+      </div>
+ 
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="resource.html">Resources</a></li>
+          <li><a href="help.html">Get Help</a></li>
+          <li><a href="success.html">Success Stories</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Hospitals</a></li>
+          <li><a href="#">NGOs</a></li>
+          <li><a href="#">Therapy Centers</a></li>
+          <li><a href="#">Schools</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">About UAWP</a></li>
+          <li><a href="#">Accessibility Guide</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+ 
+    </div>
+ 
+    <div class="footer-bottom">
+      <p>© 2026 UAWP — Unified Adaptive Web Platform. Developed by Team InclusionHub, Metropolitan University, Sylhet.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
 
   
 <script src="../js/accessibility.js"></script>
