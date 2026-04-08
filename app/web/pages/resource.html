@@ -38,7 +38,7 @@
             <label>Search</label>
             <div class="search-box">
                 <i class="fas fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search by name or city...">
+                <input type="text" id="searchInput" placeholder="Search by name, city, or disability...">
             </div>
         </div>
         <div class="filter-row">
@@ -56,11 +56,9 @@
         </div>
         <div class="filter-row">
             <label>Disability</label>
+            <!-- Pills are built dynamically from the data in resource.js -->
             <div class="filter-pills" id="disabilityFilters">
                 <button class="pill active" data-dis="all">All</button>
-                <button class="pill motor" data-dis="Motor">Motor</button>
-                <button class="pill cognitive" data-dis="Cognitive">Cognitive</button>
-                <button class="pill both" data-dis="Both">Both</button>
             </div>
         </div>
         <div class="filter-row">

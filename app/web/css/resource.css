@@ -79,14 +79,6 @@
     --gov-bdg-tx: #760E0E;
     --gov-glow: rgba(155, 18, 18, 0.18);
 
-    /* Disability badges */
-    --motor-bg: #FDEEDD;
-    --motor-tx: #722606;
-    --cogn-bg: #E2F6EC;
-    --cogn-tx: #084D30;
-    --both-bg: #EDE6FB;
-    --both-tx: #410F96;
-
     --sh1: 0 2px 10px rgba(38, 25, 12, 0.08), 0 1px 3px rgba(38, 25, 12, 0.05);
     --sh2: 0 8px 28px rgba(38, 25, 12, 0.12), 0 3px 8px rgba(38, 25, 12, 0.07);
     --sh3: 0 22px 55px rgba(38, 25, 12, 0.18), 0 6px 18px rgba(38, 25, 12, 0.10);
@@ -395,10 +387,30 @@ body {
     color: var(--gold);
 }
 
+/* ── FILTER PILLS ───────────────────────────────────────────── */
 .filter-pills {
     display: flex;
     gap: 7px;
     flex-wrap: wrap;
+}
+
+/* Disability filter: too many pills to wrap — scroll horizontally */
+#disabilityFilters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border2) transparent;
+}
+
+#disabilityFilters::-webkit-scrollbar {
+    height: 3px;
+}
+
+#disabilityFilters::-webkit-scrollbar-thumb {
+    background: var(--border2);
+    border-radius: 4px;
 }
 
 .pill {
@@ -412,6 +424,8 @@ body {
     color: var(--text2);
     transition: all 0.18s var(--ease);
     font-family: 'Plus Jakarta Sans', sans-serif;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .pill:hover {
@@ -432,30 +446,6 @@ body {
     border-color: var(--ink);
     box-shadow: 0 4px 14px rgba(38, 25, 12, 0.30);
     transform: translateY(-1px);
-}
-
-.pill.motor.active,
-.pill.motor:hover {
-    background: #963208;
-    border-color: #963208;
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(150, 50, 8, 0.32);
-}
-
-.pill.cognitive.active,
-.pill.cognitive:hover {
-    background: #0C6640;
-    border-color: #0C6640;
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(12, 102, 64, 0.30);
-}
-
-.pill.both.active,
-.pill.both:hover {
-    background: #5518C0;
-    border-color: #5518C0;
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(85, 24, 192, 0.28);
 }
 
 .results-count {
@@ -479,7 +469,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   REDESIGNED CARDS — Organic Leaf/Petal Shape + Luxury Theme
+   CARDS — Organic Leaf/Petal Shape + Luxury Theme
    ══════════════════════════════════════════════════════════════ */
 
 .resource-card {
@@ -491,7 +481,6 @@ body {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    /* Luxurious layered shadow by default */
     box-shadow:
         0 1px 2px rgba(38, 25, 12, 0.04),
         0 4px 12px rgba(38, 25, 12, 0.06),
@@ -505,12 +494,10 @@ body {
     isolation: isolate;
 }
 
-/* Alternate corners for masonry-like rhythm */
 .resource-card:nth-child(even) {
     border-radius: 8px 28px 8px 28px;
 }
 
-/* Staggered entrance */
 .resource-card:nth-child(1) {
     animation-delay: 0.04s;
 }
@@ -571,7 +558,7 @@ body {
     }
 }
 
-/* ── Gradient orb blob inside card (organic feel) ── */
+/* Orb blob */
 .resource-card::after {
     content: '';
     position: absolute;
@@ -591,7 +578,7 @@ body {
     transform: scale(1.18) translate(-8px, -8px);
 }
 
-/* Shimmer sweep on hover */
+/* Shimmer sweep */
 .resource-card::before {
     content: '';
     position: absolute;
@@ -618,7 +605,7 @@ body {
     border-radius: 6px 32px 6px 32px;
 }
 
-/* ── LEFT ACCENT BAR (replaces top strip — more editorial) ── */
+/* ── LEFT ACCENT BAR ─────────────────────────────────────────── */
 .card-strip {
     position: absolute;
     left: 0;
@@ -637,7 +624,6 @@ body {
     bottom: 10px;
 }
 
-/* Animated shimmer on the left bar */
 .card-strip::after {
     content: '';
     position: absolute;
@@ -671,30 +657,24 @@ body {
     }
 }
 
-/* ═══════════════════════════════════════════════
-   UNIFIED EARTHY THEME (FIXED COLORS)
-   ═══════════════════════════════════════════════ */
-
-/* COMMON BUTTON */
+/* ── UNIFIED EARTHY THEME ────────────────────────────────────── */
 .resource-card .view-btn {
     background: linear-gradient(135deg, #7E6030, #A8804A);
 }
 
-/* COMMON ICON */
 .resource-card .card-icon {
     background: var(--surface2);
     color: var(--ink);
 }
 
-/* ───────────── HOSPITAL ───────────── */
+/* HOSPITAL */
 .resource-card[data-cat="Hospital"] {
     background: linear-gradient(145deg, #EFEEDF, #E8E7D5, #DADDB1);
     border-color: rgba(90, 72, 45, 0.15);
 }
 
 .resource-card[data-cat="Hospital"]:hover {
-    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12),
-        0 28px 60px rgba(38, 25, 12, 0.16);
+    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12), 0 28px 60px rgba(38, 25, 12, 0.16);
 }
 
 .resource-card[data-cat="Hospital"] .card-strip {
@@ -705,15 +685,14 @@ body {
     background: radial-gradient(circle, #D6C7AE, #B3A492);
 }
 
-/* ───────────── NGO ───────────── */
+/* NGO */
 .resource-card[data-cat="NGO"] {
     background: linear-gradient(145deg, #F6F3EA, #EFEADF, #D6C7AE);
     border-color: rgba(90, 72, 45, 0.14);
 }
 
 .resource-card[data-cat="NGO"]:hover {
-    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12),
-        0 28px 60px rgba(38, 25, 12, 0.15);
+    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12), 0 28px 60px rgba(38, 25, 12, 0.15);
 }
 
 .resource-card[data-cat="NGO"] .card-strip {
@@ -724,15 +703,14 @@ body {
     background: radial-gradient(circle, #D6C7AE, #BFB29E);
 }
 
-/* ───────────── THERAPY ───────────── */
+/* THERAPY */
 .resource-card[data-cat="Therapy"] {
     background: linear-gradient(145deg, #EEF1E6, #E8E7D5, #DADDB1);
     border-color: rgba(90, 72, 45, 0.14);
 }
 
 .resource-card[data-cat="Therapy"]:hover {
-    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12),
-        0 28px 60px rgba(38, 25, 12, 0.15);
+    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12), 0 28px 60px rgba(38, 25, 12, 0.15);
 }
 
 .resource-card[data-cat="Therapy"] .card-strip {
@@ -743,15 +721,14 @@ body {
     background: radial-gradient(circle, #DADDB1, #BFB29E);
 }
 
-/* ───────────── SCHOOL ───────────── */
+/* SCHOOL */
 .resource-card[data-cat="School"] {
     background: linear-gradient(145deg, #F3F0E8, #EDE6DB, #BFB29E);
     border-color: rgba(90, 72, 45, 0.14);
 }
 
 .resource-card[data-cat="School"]:hover {
-    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12),
-        0 28px 60px rgba(38, 25, 12, 0.15);
+    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12), 0 28px 60px rgba(38, 25, 12, 0.15);
 }
 
 .resource-card[data-cat="School"] .card-strip {
@@ -762,15 +739,14 @@ body {
     background: radial-gradient(circle, #BFB29E, #B3A492);
 }
 
-/* ───────────── GOVERNMENT ───────────── */
+/* GOVERNMENT */
 .resource-card[data-cat="Government"] {
     background: linear-gradient(145deg, #F5F1E8, #EFEADF, #D6C7AE);
     border-color: rgba(90, 72, 45, 0.14);
 }
 
 .resource-card[data-cat="Government"]:hover {
-    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12),
-        0 28px 60px rgba(38, 25, 12, 0.15);
+    box-shadow: 0 10px 30px rgba(38, 25, 12, 0.12), 0 28px 60px rgba(38, 25, 12, 0.15);
 }
 
 .resource-card[data-cat="Government"] .card-strip {
@@ -784,7 +760,6 @@ body {
 /* ── CARD BODY ───────────────────────────────────────────────── */
 .card-body {
     padding: 22px 22px 18px 30px;
-    /* extra left for the accent bar */
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -799,7 +774,6 @@ body {
     margin-bottom: 14px;
 }
 
-/* Icon — floating rounded square */
 .card-icon {
     width: 52px;
     height: 52px;
@@ -808,11 +782,8 @@ body {
     justify-content: center;
     font-size: 22px;
     border-radius: 16px 6px 16px 6px;
-    /* matches card organic feel */
     flex-shrink: 0;
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.10),
-        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.55);
     transition: transform 0.4s var(--ease), box-shadow 0.3s, border-radius 0.4s var(--ease);
     position: relative;
 }
@@ -822,7 +793,7 @@ body {
     border-radius: 50%;
 }
 
-/* Badges */
+/* ── BADGES ──────────────────────────────────────────────────── */
 .card-badges {
     display: flex;
     flex-direction: column;
@@ -846,6 +817,7 @@ body {
     transform: scale(1.06) translateX(-2px);
 }
 
+/* Category badges */
 .badge-hospital {
     background: var(--hosp-bdg-bg);
     color: var(--hosp-bdg-tx);
@@ -871,28 +843,20 @@ body {
     color: var(--gov-bdg-tx);
 }
 
-.badge-motor {
-    background: var(--motor-bg);
-    color: var(--motor-tx);
+/* Disability type badge — single unified style (replaces motor/cognitive/both) */
+.badge-disability {
+    background: #EDE9FE;
+    color: #410F96;
 }
 
-.badge-cognitive {
-    background: var(--cogn-bg);
-    color: var(--cogn-tx);
-}
-
-.badge-both {
-    background: var(--both-bg);
-    color: var(--both-tx);
-}
-
+/* Country badge */
 .badge-country {
     background: var(--cream);
     color: var(--text2);
     border: 1px solid var(--border2);
 }
 
-/* Card text */
+/* ── CARD TEXT ───────────────────────────────────────────────── */
 .resource-card h3 {
     font-family: 'Fraunces', serif;
     font-size: 15px;
@@ -917,7 +881,7 @@ body {
     font-weight: 400;
 }
 
-/* Card footer */
+/* ── CARD FOOTER ─────────────────────────────────────────────── */
 .card-footer {
     display: flex;
     justify-content: space-between;
@@ -959,7 +923,7 @@ body {
     }
 }
 
-/* View button — pill with inner glow */
+/* View button */
 .view-btn {
     border: none;
     padding: 8px 18px;
@@ -1012,7 +976,6 @@ body {
     transform: translateX(3px);
 }
 
-/* View btn box shadows per category */
 .resource-card[data-cat="Hospital"] .view-btn {
     box-shadow: 0 4px 14px rgba(27, 78, 150, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
@@ -1035,7 +998,7 @@ body {
 
 /* No results */
 .no-results {
-    grid-column: 1/-1;
+    grid-column: 1 / -1;
     text-align: center;
     padding: 90px 24px;
     color: var(--text3);

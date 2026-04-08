@@ -127,7 +127,7 @@ async function handleSignup() {
     }
 
     // Show success and switch to login
-    btn.innerHTML = `✅ Account created!`;
+    btn.innerHTML = `Account created!`;
     setTimeout(() => {
       switchToLogin();
       btn.innerHTML = `<i class='bx bx-user-plus'></i> Create Account`;
