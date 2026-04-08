@@ -49,11 +49,11 @@
         <!-- TOPBAR -->
         <header class="topbar">
             <div class="topbar-title">
-                Help Requests
-                <span>Manage & respond to all incoming requests</span>
+                Admin Dashboard
+                <span>Manage requests, users & platform</span>
             </div>
             <div class="topbar-right">
-                <button class="refresh-btn" onclick="loadRequests()">
+                <button class="refresh-btn" onclick="loadRequests(); if(currentTab==='users') loadUsers();">
                     <i class="fas fa-rotate-right"></i> Refresh
                 </button>
                 <div class="admin-badge">
@@ -89,27 +89,43 @@
                 </div>
             </div>
 
+            <!-- TABS -->
+            <div class="tabs-row">
+                <button class="tab-btn active" data-tab="requests" onclick="switchTab('requests')">
+                    <i class="fas fa-hand-holding-heart"></i> Help Requests
+                </button>
+                <button class="tab-btn" data-tab="users" onclick="switchTab('users')">
+                    <i class="fas fa-users"></i> Registered Users
+                </button>
+            </div>
+
             <!-- TABLE CARD -->
             <div class="table-card">
                 <div class="table-header">
-                    <h2>All Requests</h2>
-                    <div class="filter-pills">
+                    <h2 id="tableTitle">All Requests</h2>
+
+                    <!-- Requests filters -->
+                    <div id="filterArea" class="filter-pills">
                         <button class="pill active" onclick="setFilter('all',this)">All</button>
                         <button class="pill" onclick="setFilter('Pending',this)">Pending</button>
                         <button class="pill" onclick="setFilter('Reviewed',this)">Reviewed</button>
                         <button class="pill" onclick="setFilter('Resolved',this)">Resolved</button>
                     </div>
                 </div>
-                <div class="search-row">
+
+                <!-- Search (requests only) -->
+                <div class="search-row" id="searchRowEl">
                     <div class="search-box">
                         <i class="fas fa-magnifying-glass"></i>
                         <input type="text" id="searchInput" placeholder="Search by name or email..."
                             oninput="renderTable()">
                     </div>
                 </div>
+
                 <div class="table-wrap">
                     <table>
-                        <thead>
+                        <!-- Requests header -->
+                        <thead id="requestsTableHeader">
                             <tr>
                                 <th>#</th>
                                 <th>Applicant</th>
@@ -121,10 +137,22 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
+                        <!-- Users header (hidden by default) -->
+                        <thead id="usersTableHeader" style="display:none;">
+                            <tr>
+                                <th>#</th>
+                                <th>User</th>
+                                <th>Registered</th>
+                                <th>Last Login</th>
+                                <th>Login Count</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
                         <tbody id="tableBody">
                             <tr>
                                 <td colspan="8">
-                                    <div class="empty-state"><i class="fas fa-spinner fa-spin"></i>
+                                    <div class="empty-state">
+                                        <i class="fas fa-spinner fa-spin"></i>
                                         <p>Loading...</p>
                                     </div>
                                 </td>
@@ -148,6 +176,35 @@
                 <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
             </div>
             <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- RESOLVE MODAL -->
+    <div class="resolve-modal-overlay" id="resolveModal">
+        <div class="resolve-modal">
+            <div class="resolve-modal-title">Resolve Request</div>
+            <div class="resolve-modal-sub">Resolving this request will <strong>send an email</strong> to the user
+                notifying them.</div>
+
+            <div class="resolve-modal-info">
+                <div>👤 <strong>User:</strong> <span id="resolveModalName"></span></div>
+                <div>✉️ <strong>Email:</strong> <span id="resolveModalEmail"></span></div>
+            </div>
+
+            <input type="hidden" id="resolveModalId">
+
+            <div class="note-label">Admin Note (optional — will appear in the email)</div>
+            <textarea class="resolve-note-input" id="resolveNote"
+                placeholder="e.g. We have connected you with Sylhet MAG Osmani Hospital. Please visit on Monday at 10am and ask for Dr. Rahman."></textarea>
+            <div class="resolve-modal-note-hint">This note will be included in the resolution email sent to the user.
+            </div>
+
+            <div class="resolve-modal-actions">
+                <button class="btn-cancel" onclick="closeResolveModal()">Cancel</button>
+                <button class="btn-resolve" onclick="confirmResolve()">
+                    <i class="fas fa-paper-plane"></i> Resolve & Send Email
+                </button>
+            </div>
         </div>
     </div>
 

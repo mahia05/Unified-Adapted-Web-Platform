@@ -5,18 +5,22 @@ const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
-});
+    password: { type: String, required: true },
+    lastLogin: { type: Date, default: null },
+    loginHistory: [
+        {
+            loginAt: { type: Date, default: Date.now },
+            device: { type: String, default: "Unknown" }
+        }
+    ]
+}, { timestamps: true });
 
-// Pre-save hook: hash password before saving
 userSchema.pre("save", async function () {
     if (!this.isModified("password")) return;
-
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Method to compare password during login
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };

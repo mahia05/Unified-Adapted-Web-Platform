@@ -1,7 +1,6 @@
 import User from "../../../database/models/userModel.js";
-import bcrypt from "bcryptjs";
 
-// ── SIGNUP ──
+// ── SIGNUP ──────────────────────────────────────────────────
 export const signup = async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
@@ -22,7 +21,7 @@ export const signup = async (req, res) => {
     }
 };
 
-// ── LOGIN ──
+// ── LOGIN ────────────────────────────────────────────────────
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -37,7 +36,16 @@ export const login = async (req, res) => {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
-        // ✅ সঠিক পদ্ধতি
+        // Track login history (keep last 10)
+        const device = req.headers['user-agent'] || "Unknown";
+        user.lastLogin = new Date();
+        user.loginHistory = [
+            { loginAt: new Date(), device },
+            ...(user.loginHistory || [])
+        ].slice(0, 10);
+
+        await user.save();
+
         const userData = user.toObject();
         delete userData.password;
 

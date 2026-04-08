@@ -1,4 +1,8 @@
 import Help from "../../../database/models/helpModel.js";
+import {
+    sendHelpConfirmationToUser,
+    sendHelpNotificationToAdmin
+} from "../../../utils/emailService.js";
 
 // POST /api/help — Submit a new help request
 export const submitHelp = async (req, res) => {
@@ -12,13 +16,19 @@ export const submitHelp = async (req, res) => {
         const newHelp = new Help({ name, email, phone, helpType, urgency, description });
         await newHelp.save();
 
+        // Send emails (non-blocking — don't fail if email fails)
+        Promise.all([
+            sendHelpConfirmationToUser({ name, email, helpType, urgency, description }),
+            sendHelpNotificationToAdmin({ name, email, phone, helpType, urgency, description })
+        ]).catch(err => console.error("Email error:", err));
+
         res.status(201).json({ message: "Help request submitted successfully!", data: newHelp });
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
 
-// GET /api/help — Get all help requests (admin use)
+// GET /api/help — Get all help requests
 export const getAllHelp = async (req, res) => {
     try {
         const requests = await Help.find().sort({ createdAt: -1 });

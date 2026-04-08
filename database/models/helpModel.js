@@ -19,7 +19,8 @@ const helpSchema = new mongoose.Schema({
         type: String,
         enum: ["Pending", "Reviewed", "Resolved"],
         default: "Pending"
-    }
+    },
+    adminNote: { type: String, default: "" }  // admin can add a resolution note
 }, { timestamps: true });
 
 const Help = mongoose.model("Help", helpSchema);
