@@ -1,34 +1,28 @@
-// app/web/controllers/authController.js
 import User from "../../../database/models/userModel.js";
 import bcrypt from "bcryptjs";
 
-// SIGNUP
+// ── SIGNUP ──
 export const signup = async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
 
-        // Check if user exists
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({ success: false, message: "User already exists" });
         }
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create new user
-        const newUser = new User({ firstName, lastName, email, password: hashedPassword });
+        const newUser = new User({ firstName, lastName, email, password });
         await newUser.save();
 
         res.status(201).json({ success: true, message: "Signup successful" });
 
     } catch (error) {
-        console.error(error);
+        console.error("Signup Error:", error);
         res.status(500).json({ success: false, message: "Error in signup" });
     }
 };
 
-// LOGIN
+// ── LOGIN ──
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -38,16 +32,19 @@ export const login = async (req, res) => {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
-        // Compare password
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await user.comparePassword(password);
         if (!isMatch) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
-        res.status(200).json({ success: true, message: "Login successful", user });
+        // ✅ সঠিক পদ্ধতি
+        const userData = user.toObject();
+        delete userData.password;
+
+        res.status(200).json({ success: true, message: "Login successful", user: userData });
 
     } catch (error) {
-        console.error(error);
+        console.error("Login Error:", error);
         res.status(500).json({ success: false, message: "Error in login" });
     }
 };
