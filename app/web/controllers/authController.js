@@ -1,7 +1,9 @@
-const User = require("../../../database/models/userModel");
+// app/web/controllers/authController.js
+import User from "../../../database/models/userModel.js";
+import bcrypt from "bcryptjs";
 
 // SIGNUP
-exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
 
@@ -11,8 +13,11 @@ exports.signup = async (req, res) => {
             return res.status(400).json({ success: false, message: "User already exists" });
         }
 
-        // Create new user (password hashed automatically via pre-save hook)
-        const newUser = new User({ firstName, lastName, email, password });
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create new user
+        const newUser = new User({ firstName, lastName, email, password: hashedPassword });
         await newUser.save();
 
         res.status(201).json({ success: true, message: "Signup successful" });
@@ -24,18 +29,17 @@ exports.signup = async (req, res) => {
 };
 
 // LOGIN
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
         // Compare password
-        const isMatch = await user.comparePassword(password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
