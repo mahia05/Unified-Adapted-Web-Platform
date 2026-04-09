@@ -8,21 +8,8 @@
    --card-shadow: 0 8px 32px rgba(63, 59, 35, 0.10);
  }
 
- * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
- }
 
- body {
-   font-family: 'DM Sans', sans-serif;
-   background: var(--bg);
-   color: var(--primary);
-   overflow-x: hidden;
- }
-
-
- /* ── NAVBAR ── */
+ /* navbar*/
  .navbar {
    position: fixed;
    top: 0;
@@ -90,7 +77,7 @@
    width: 100%;
  }
 
- /* ── HERO ── */
+ /* hero*/
  .hero {
    min-height: 100vh;
    display: flex;
@@ -98,15 +85,45 @@
    justify-content: center;
    position: relative;
    overflow: hidden;
-   background: var(--primary);
+   /*background: var(--primary);*/
+   background: linear-gradient(rgba(20, 18, 8, 0.55),
+       rgba(20, 18, 8, 0.55)),
+     url('../images/hero\ bg.jpg') no-repeat center center / cover;
  }
+
+ ;
+
 
  .hero-bg {
    position: absolute;
    inset: 0;
+
    background:
-     radial-gradient(ellipse 80% 60% at 70% 40%, rgba(194, 183, 121, 0.18) 0%, transparent 70%),
-     radial-gradient(ellipse 50% 80% at 10% 80%, rgba(235, 229, 194, 0.10) 0%, transparent 60%);
+     radial-gradient(ellipse 60% 50% at 70% 40%,
+       rgba(194, 183, 121, 0.12) 0%, transparent 70%),
+     radial-gradient(ellipse 40% 60% at 10% 80%,
+       rgba(235, 229, 194, 0.06) 0%, transparent 60%);
+   z-index: 2;
+ }
+
+ /* Dark overlay jate text clean thake*/
+ .hero::before {
+   content: '';
+   position: absolute;
+   inset: 0;
+   background: linear-gradient(to bottom,
+       rgba(20, 18, 8, 0.45) 0%,
+       rgba(20, 18, 8, 0.35) 50%,
+       rgba(20, 18, 8, 0.60) 100%);
+   z-index: 1;
+ }
+
+ .hero-bg,
+ .hero-deco,
+ .hero-content,
+ .hero-scroll {
+   position: relative;
+   z-index: 2;
  }
 
  /* Decorative circles */
@@ -296,7 +313,7 @@
    margin-top: 2px;
  }
 
- /* ── ACCESSIBILITY ── */
+ /* ── Accessibility ── */
  .accessibility-section {
    background: var(--light);
    padding: 60px 60px 50px;
@@ -700,147 +717,5 @@
    .footer-bottom {
      flex-direction: column;
      text-align: center;
-   }
- }
-
- /* ── ADD THESE STYLES TO THE BOTTOM OF style.css ──────────── */
-
- /* HAMBURGER BUTTON */
- .hamburger {
-   display: none;
-   flex-direction: column;
-   justify-content: space-between;
-   width: 28px;
-   height: 20px;
-   background: transparent;
-   border: none;
-   cursor: pointer;
-   padding: 0;
-   z-index: 1001;
-   flex-shrink: 0;
- }
-
- .hamburger span {
-   display: block;
-   height: 2.5px;
-   width: 100%;
-   background: var(--secondary, #c2b779);
-   border-radius: 4px;
-   transition: all 0.3s ease;
-   transform-origin: center;
- }
-
- /* Hamburger → X animation */
- .hamburger.active span:nth-child(1) {
-   transform: translateY(8.75px) rotate(45deg);
- }
-
- .hamburger.active span:nth-child(2) {
-   opacity: 0;
-   transform: scaleX(0);
- }
-
- .hamburger.active span:nth-child(3) {
-   transform: translateY(-8.75px) rotate(-45deg);
- }
-
- /* MOBILE OVERLAY (behind nav) */
- .mobile-overlay {
-   display: none;
-   position: fixed;
-   inset: 0;
-   background: rgba(28, 22, 18, 0.5);
-   z-index: 998;
-   backdrop-filter: blur(4px);
- }
-
- .mobile-overlay.active {
-   display: block;
-   animation: fadeIn 0.2s ease;
- }
-
- @keyframes fadeIn {
-   from {
-     opacity: 0;
-   }
-
-   to {
-     opacity: 1;
-   }
- }
-
- /* MOBILE NAV PANEL */
- @media (max-width: 768px) {
-   .hamburger {
-     display: flex;
-   }
-
-   /* Hide desktop nav by default on mobile */
-   .nav-links {
-     display: flex !important;
-     flex-direction: column;
-     position: fixed;
-     top: 0;
-     right: -100%;
-     width: min(300px, 80vw);
-     height: 100vh;
-     background: var(--primary, #3f3b23);
-     padding: 80px 28px 40px;
-     gap: 6px !important;
-     z-index: 999;
-     transition: right 0.35s cubic-bezier(0.34, 1.1, 0.64, 1);
-     box-shadow: -8px 0 32px rgba(0, 0, 0, 0.3);
-     overflow-y: auto;
-   }
-
-   .nav-links.mobile-open {
-     right: 0;
-   }
-
-   .nav-links li {
-     width: 100%;
-   }
-
-   .nav-links a {
-     display: flex;
-     align-items: center;
-     padding: 14px 18px !important;
-     border-radius: 12px !important;
-     font-size: 15px !important;
-     font-weight: 500;
-     color: rgba(235, 229, 194, 0.85) !important;
-     text-decoration: none;
-     transition: all 0.2s;
-     width: 100%;
-     gap: 10px;
-   }
-
-   .nav-links a:hover,
-   .nav-links a.active {
-     background: rgba(255, 255, 255, 0.1) !important;
-     color: var(--secondary, #c2b779) !important;
-   }
-
-   .nav-links a::after {
-     display: none !important;
-   }
-
-   /* Adjust navbar padding on mobile */
-   .navbar {
-     padding: 0 20px !important;
-     justify-content: space-between;
-   }
- }
-
- /* Resource page navbar (uses different font/color) */
- @media (max-width: 768px) {
-   .navbar .hamburger span {
-     background: var(--ink, #26190C);
-   }
-
-   /* If navbar is dark (homepage) keep hamburger light */
-   .navbar[style*="rgba(63, 59, 35"] .hamburger span,
-   nav.navbar .hamburger span {
-     background: var(--secondary, #c2b779);
    }
  }
