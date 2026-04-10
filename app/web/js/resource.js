@@ -30,11 +30,9 @@
 })();
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
-// disabilityType now uses specific disability names instead of broad Motor/Cognitive
 const resources = [
 
     // ── BANGLADESH ───────────────────────────────────────────────────────────
-
     {
         name: "Centre for the Rehabilitation of the Paralysed (CRP)",
         category: "Therapy",
@@ -125,7 +123,6 @@ const resources = [
     },
 
     // ── INDIA ─────────────────────────────────────────────────────────────────
-
     {
         name: "NIMHANS — National Institute of Mental Health & Neurosciences",
         category: "Hospital",
@@ -185,7 +182,6 @@ const resources = [
     },
 
     // ── USA ───────────────────────────────────────────────────────────────────
-
     {
         name: "Shirley Ryan AbilityLab",
         category: "Therapy",
@@ -254,7 +250,6 @@ const resources = [
     },
 
     // ── UK ────────────────────────────────────────────────────────────────────
-
     {
         name: "The National Hospital for Neurology and Neurosurgery",
         category: "Hospital",
@@ -312,7 +307,6 @@ const resources = [
     },
 
     // ── CANADA ────────────────────────────────────────────────────────────────
-
     {
         name: "Holland Bloorview Kids Rehabilitation Hospital",
         category: "Hospital",
@@ -359,7 +353,6 @@ const resources = [
     },
 
     // ── AUSTRALIA ─────────────────────────────────────────────────────────────
-
     {
         name: "Cerebral Palsy Alliance",
         category: "Therapy",
@@ -417,7 +410,6 @@ const resources = [
     },
 
     // ── GERMANY ───────────────────────────────────────────────────────────────
-
     {
         name: "Lebenshilfe Germany",
         category: "NGO",
@@ -464,7 +456,7 @@ const resources = [
     }
 ];
 
-// ─── DISABILITY TYPE LIST (extracted dynamically) ─────────────────────────────
+// ─── DISABILITY TYPE LIST ─────────────────────────────────────────────────────
 const allDisabilityTypes = [...new Set(resources.map(r => r.disabilityType))].sort();
 
 // ─── ICONS & CLASSES ─────────────────────────────────────────────────────────
@@ -486,7 +478,7 @@ const catBadgeClass = {
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let activeCountry = "all", activeDis = "all", activeCat = "all", searchVal = "";
 
-// ─── BUILD DISABILITY FILTER PILLS DYNAMICALLY ───────────────────────────────
+// ─── BUILD DISABILITY FILTER PILLS ───────────────────────────────────────────
 function buildDisabilityFilters() {
     const container = document.getElementById("disabilityFilters");
     container.innerHTML = `<button class="pill active" data-dis="all">All</button>`;
@@ -500,7 +492,7 @@ function buildDisabilityFilters() {
     setupPills("disabilityFilters", "dis");
 }
 
-// ─── RENDER ───────────────────────────────────────────────────────────────────
+// ─── RENDER CARDS ─────────────────────────────────────────────────────────────
 function renderCards() {
     const grid = document.getElementById("cardGrid");
     const count = document.getElementById("resultCount");
@@ -566,6 +558,7 @@ const catIconStyle = {
 
 function openModal(idx) {
     const r = resources[idx];
+
     const strip = document.getElementById("mTopStrip") || (() => {
         const el = document.createElement("div");
         el.id = "mTopStrip";
@@ -647,3 +640,64 @@ document.getElementById("searchInput").addEventListener("input", function () {
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 buildDisabilityFilters();
 renderCards();
+
+// ─── MOBILE NAV (hamburger) ───────────────────────────────────────────────────
+// CSS is in resource.css — this only handles DOM + events
+(function initMobileNav() {
+    function setup() {
+        const navbar = document.querySelector('.navbar');
+        const navLinks = document.querySelector('.nav-links');
+        if (!navbar || !navLinks || navbar.querySelector('.hamburger')) return;
+
+        // Hamburger button
+        const btn = document.createElement('button');
+        btn.className = 'hamburger';
+        btn.setAttribute('aria-label', 'Toggle navigation');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        navbar.appendChild(btn);
+
+        // Dark overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'mob-overlay';
+        document.body.appendChild(overlay);
+
+        function openNav() {
+            navLinks.classList.add('is-open');
+            btn.classList.add('is-open');
+            overlay.classList.add('is-open');
+            document.body.classList.add('nav-locked');
+            btn.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeNav() {
+            navLinks.classList.remove('is-open');
+            btn.classList.remove('is-open');
+            overlay.classList.remove('is-open');
+            document.body.classList.remove('nav-locked');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+
+        btn.addEventListener('click', () =>
+            navLinks.classList.contains('is-open') ? closeNav() : openNav()
+        );
+        overlay.addEventListener('click', closeNav);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.body.classList.remove('nav-locked');
+                document.body.style.overflow = '';
+                navLinks.classList.remove('is-open');
+                btn.classList.remove('is-open');
+                overlay.classList.remove('is-open');
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setup);
+    } else {
+        setup();
+    }
+})();

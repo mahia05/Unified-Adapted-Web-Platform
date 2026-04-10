@@ -2,16 +2,16 @@ import nodemailer from "nodemailer";
 
 // ── Transporter ──────────────────────────────────────────────
 const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.GMAIL_USER,   // your Gmail address
-        pass: process.env.GMAIL_PASS    // Gmail App Password (not your real password)
-    }
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,   // your Gmail address
+    pass: process.env.GMAIL_PASS    // Gmail App Password (not your real password)
+  }
 });
 
 // ── 1. Email to USER when they submit a help request ─────────
 export const sendHelpConfirmationToUser = async ({ name, email, helpType, urgency, description }) => {
-    const html = `
+  const html = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -83,17 +83,17 @@ export const sendHelpConfirmationToUser = async ({ name, email, helpType, urgenc
     </body>
     </html>`;
 
-    await transporter.sendMail({
-        from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
-        to: email,
-        subject: `✅ Help Request Received — ${helpType} (${urgency} Priority)`,
-        html
-    });
+  await transporter.sendMail({
+    from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
+    to: email,
+    subject: `✅ Help Request Received — ${helpType} (${urgency} Priority)`,
+    html
+  });
 };
 
 // ── 2. Email to ADMIN when a new help request comes in ───────
 export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType, urgency, description }) => {
-    const html = `
+  const html = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -147,17 +147,17 @@ export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType
     </body>
     </html>`;
 
-    await transporter.sendMail({
-        from: `"UAWP System" <${process.env.GMAIL_USER}>`,
-        to: process.env.GMAIL_USER,  // admin email = same Gmail
-        subject: `🚨 [${urgency}] New Help Request — ${name} (${helpType})`,
-        html
-    });
+  await transporter.sendMail({
+    from: `"UAWP System" <${process.env.GMAIL_USER}>`,
+    to: process.env.GMAIL_USER,  // admin email = same Gmail
+    subject: `🚨 [${urgency}] New Help Request — ${name} (${helpType})`,
+    html
+  });
 };
 
 // ── 3. Email to USER when request is RESOLVED ────────────────
 export const sendResolutionEmailToUser = async ({ name, email, helpType, description, adminNote }) => {
-    const html = `
+  const html = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -231,10 +231,10 @@ export const sendResolutionEmailToUser = async ({ name, email, helpType, descrip
     </body>
     </html>`;
 
-    await transporter.sendMail({
-        from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
-        to: email,
-        subject: `✅ Your Help Request Has Been Resolved — UAWP`,
-        html
-    });
+  await transporter.sendMail({
+    from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
+    to: email,
+    subject: `Your Help Request Has Been Resolved — UAWP`,
+    html
+  });
 };

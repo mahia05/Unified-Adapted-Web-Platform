@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UAWP — Admin Dashboard</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/admin.css">
@@ -14,33 +14,34 @@
 
 <body>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- SIDEBAR — matches help.html navbar dark tone (#3f3b23) -->
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
-            <div class="logo-text">UAWP</div>
-            <div class="logo-sub">Admin Panel</div>
+            <div class="logo-icon"><i class="fas fa-shield-halved"></i></div>
+            <div class="logo-info">
+                <div class="logo-text">UAWP</div>
+                <div class="logo-sub">Admin Panel</div>
+            </div>
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Main</div>
             <a class="nav-item active" href="#">
-                <i class="fas fa-table-columns"></i>
-                <span>Dashboard</span>
+                <i class="fas fa-table-columns"></i><span>Dashboard</span>
             </a>
             <a class="nav-item" href="../../web/pages/resource.html">
-                <i class="fas fa-folder-open"></i>
-                <span>Resources</span>
+                <i class="fas fa-folder-open"></i><span>Resources</span>
             </a>
             <a class="nav-item" href="../../web/pages/help.html">
-                <i class="fas fa-hand-holding-heart"></i>
-                <span>Help Requests</span>
+                <i class="fas fa-hand-holding-heart"></i><span>Help Requests</span>
             </a>
             <div class="nav-label">Platform</div>
             <a class="nav-item" href="../../web/pages/index.html">
-                <i class="fas fa-arrow-up-right-from-square"></i>
-                <span>View Site</span>
+                <i class="fas fa-arrow-up-right-from-square"></i><span>View Site</span>
             </a>
         </nav>
-        <div class="sidebar-footer">© 2026 UAWP</div>
+        <div class="sidebar-footer">© 2026 UAWP · InclusionHub</div>
     </aside>
 
     <!-- MAIN -->
@@ -48,17 +49,22 @@
 
         <!-- TOPBAR -->
         <header class="topbar">
-            <div class="topbar-title">
-                Admin Dashboard
-                <span>Manage requests, users & platform</span>
+            <div class="topbar-left">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <div class="topbar-title">Admin Dashboard</div>
+                    <div class="topbar-subtitle">Manage requests, users &amp; platform</div>
+                </div>
             </div>
             <div class="topbar-right">
                 <button class="refresh-btn" onclick="loadRequests(); if(currentTab==='users') loadUsers();">
-                    <i class="fas fa-rotate-right"></i> Refresh
+                    <i class="fas fa-rotate-right"></i><span>Refresh</span>
                 </button>
                 <div class="admin-badge">
                     <div class="admin-dot"></div>
-                    Admin
+                    <span>Admin</span>
                 </div>
             </div>
         </header>
@@ -103,8 +109,6 @@
             <div class="table-card">
                 <div class="table-header">
                     <h2 id="tableTitle">All Requests</h2>
-
-                    <!-- Requests filters -->
                     <div id="filterArea" class="filter-pills">
                         <button class="pill active" onclick="setFilter('all',this)">All</button>
                         <button class="pill" onclick="setFilter('Pending',this)">Pending</button>
@@ -113,18 +117,16 @@
                     </div>
                 </div>
 
-                <!-- Search (requests only) -->
                 <div class="search-row" id="searchRowEl">
                     <div class="search-box">
                         <i class="fas fa-magnifying-glass"></i>
-                        <input type="text" id="searchInput" placeholder="Search by name or email..."
+                        <input type="text" id="searchInput" placeholder="Search by name or email…"
                             oninput="renderTable()">
                     </div>
                 </div>
 
                 <div class="table-wrap">
                     <table>
-                        <!-- Requests header -->
                         <thead id="requestsTableHeader">
                             <tr>
                                 <th>#</th>
@@ -137,7 +139,6 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <!-- Users header (hidden by default) -->
                         <thead id="usersTableHeader" style="display:none;">
                             <tr>
                                 <th>#</th>
@@ -153,7 +154,7 @@
                                 <td colspan="8">
                                     <div class="empty-state">
                                         <i class="fas fa-spinner fa-spin"></i>
-                                        <p>Loading...</p>
+                                        <p>Loading data…</p>
                                     </div>
                                 </td>
                             </tr>
@@ -182,36 +183,46 @@
     <!-- RESOLVE MODAL -->
     <div class="resolve-modal-overlay" id="resolveModal">
         <div class="resolve-modal">
-            <div class="resolve-modal-title">Resolve Request</div>
-            <div class="resolve-modal-sub">Resolving this request will <strong>send an email</strong> to the user
-                notifying them.</div>
-
+            <div class="resolve-modal-title">✅ Resolve Request</div>
+            <div class="resolve-modal-sub">
+                Resolving this request will <strong>send an email</strong> to the user notifying them.
+            </div>
             <div class="resolve-modal-info">
                 <div>👤 <strong>User:</strong> <span id="resolveModalName"></span></div>
                 <div>✉️ <strong>Email:</strong> <span id="resolveModalEmail"></span></div>
             </div>
-
             <input type="hidden" id="resolveModalId">
-
-            <div class="note-label">Admin Note (optional — will appear in the email)</div>
+            <div class="note-label">Admin Note (optional — shown in the email)</div>
             <textarea class="resolve-note-input" id="resolveNote"
-                placeholder="e.g. We have connected you with Sylhet MAG Osmani Hospital. Please visit on Monday at 10am and ask for Dr. Rahman."></textarea>
+                placeholder="e.g. We've connected you with Sylhet MAG Osmani Hospital. Please visit Monday at 10am and ask for Dr. Rahman."></textarea>
             <div class="resolve-modal-note-hint">This note will be included in the resolution email sent to the user.
             </div>
-
             <div class="resolve-modal-actions">
                 <button class="btn-cancel" onclick="closeResolveModal()">Cancel</button>
                 <button class="btn-resolve" onclick="confirmResolve()">
-                    <i class="fas fa-paper-plane"></i> Resolve & Send Email
+                    <i class="fas fa-paper-plane"></i> Resolve &amp; Send Email
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
     <script src="../js/admin.js"></script>
+    <script>
+        // ── Mobile sidebar toggle ───────────────────────────────
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const toggle = document.getElementById('sidebarToggle');
+
+        const openSB = () => { sidebar.classList.add('mobile-open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; };
+        const closeSB = () => { sidebar.classList.remove('mobile-open'); overlay.classList.remove('active'); document.body.style.overflow = ''; };
+
+        toggle.addEventListener('click', () => sidebar.classList.contains('mobile-open') ? closeSB() : openSB());
+        overlay.addEventListener('click', closeSB);
+        sidebar.querySelectorAll('.nav-item').forEach(el => el.addEventListener('click', () => { if (window.innerWidth <= 640) closeSB(); }));
+    </script>
+
 </body>
 
 </html>

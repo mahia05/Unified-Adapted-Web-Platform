@@ -3,10 +3,24 @@ import mongoose from "mongoose";
 const helpSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
-    phone: { type: String },
+    phone: { type: String, default: "" },
+    location: { type: String, default: "" },
+    disability: {
+        type: String,
+        enum: ["Motor", "Cognitive", "Autism", "Other", ""],
+        default: ""
+    },
     helpType: {
         type: String,
-        enum: ["Medical Support", "Educational Support", "Financial Help", "Assistive Device"],
+        enum: [
+            "Hospital / Medical Support",
+            "School / Educational Support",
+            "NGO Support",
+            "Therapy Center",
+            "Assistive Device",
+            "Financial Help",
+            "Other"
+        ],
         required: true
     },
     urgency: {
@@ -20,7 +34,7 @@ const helpSchema = new mongoose.Schema({
         enum: ["Pending", "Reviewed", "Resolved"],
         default: "Pending"
     },
-    adminNote: { type: String, default: "" }  // admin can add a resolution note
+    adminNote: { type: String, default: "" }
 }, { timestamps: true });
 
 const Help = mongoose.model("Help", helpSchema);

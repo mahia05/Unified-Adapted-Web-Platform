@@ -29,7 +29,6 @@
     --gold2: #A8804A;
     --gold-glow: rgba(126, 96, 48, 0.22);
 
-    /* Hospital – Steel Blue */
     --hosp-card: #EAF0FA;
     --hosp-s1: #1B4E96;
     --hosp-s2: #5B9CF6;
@@ -39,7 +38,6 @@
     --hosp-bdg-tx: #153C76;
     --hosp-glow: rgba(27, 78, 150, 0.20);
 
-    /* NGO – Burnt Amber */
     --ngo-card: #F6EDDC;
     --ngo-s1: #963208;
     --ngo-s2: #E8912A;
@@ -49,7 +47,6 @@
     --ngo-bdg-tx: #722606;
     --ngo-glow: rgba(150, 50, 8, 0.18);
 
-    /* Therapy – Emerald */
     --ther-card: #E2F6EC;
     --ther-s1: #0C6640;
     --ther-s2: #28C07A;
@@ -59,7 +56,6 @@
     --ther-bdg-tx: #084D30;
     --ther-glow: rgba(12, 102, 64, 0.18);
 
-    /* School – Royal Violet */
     --sch-card: #EDE6FB;
     --sch-s1: #5518C0;
     --sch-s2: #9560F0;
@@ -69,7 +65,6 @@
     --sch-bdg-tx: #410F96;
     --sch-glow: rgba(85, 24, 192, 0.16);
 
-    /* Government – Crimson */
     --gov-card: #FAE6E6;
     --gov-s1: #9B1212;
     --gov-s2: #E04A4A;
@@ -124,6 +119,8 @@ body {
     z-index: 999;
     border-bottom: 1px solid var(--border);
     box-shadow: var(--sh1);
+    /* overflow visible so the slide-out drawer is not clipped */
+    overflow: visible;
 }
 
 .logo {
@@ -134,6 +131,7 @@ body {
     color: var(--ink);
     text-decoration: none;
     position: relative;
+    flex-shrink: 0;
 }
 
 .logo::after {
@@ -147,6 +145,7 @@ body {
     border-radius: 2px;
 }
 
+/* ── NAV LINKS (desktop) ─────────────────────────────────────── */
 .nav-links {
     display: flex;
     gap: 4px;
@@ -161,6 +160,7 @@ body {
     padding: 8px 18px;
     border-radius: 24px;
     transition: all 0.2s var(--ease-smooth);
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
@@ -173,6 +173,82 @@ body {
     background: var(--ink);
     color: #fff;
     box-shadow: 0 4px 14px rgba(38, 25, 12, 0.28);
+}
+
+/* ── HAMBURGER BUTTON ─────────────────────────────────────────── */
+/* Hidden on desktop, shown on mobile via media query below */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    background: rgba(38, 25, 12, 0.08);
+    border: 1.5px solid rgba(38, 25, 12, 0.15);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+    position: relative;
+    z-index: 1200;
+}
+
+.hamburger:hover {
+    background: rgba(38, 25, 12, 0.14);
+}
+
+.hamburger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.32s cubic-bezier(0.34, 1.22, 0.64, 1),
+        opacity 0.22s ease,
+        width 0.28s ease;
+    transform-origin: center;
+}
+
+.hamburger.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.is-open span:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.hamburger.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── MOBILE OVERLAY ───────────────────────────────────────────── */
+.mob-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 8, 2, 0.45);
+    z-index: 1050;
+    /* Overlay covers only the LEFT side, not the nav drawer on the right */
+    right: min(290px, 84vw);
+}
+
+.mob-overlay.is-open {
+    display: block;
+    animation: ov-in 0.22s ease both;
+}
+
+@keyframes ov-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* ── HERO ────────────────────────────────────────────────────── */
@@ -394,7 +470,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Disability filter: too many pills to wrap — scroll horizontally */
 #disabilityFilters {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -468,10 +543,7 @@ body {
     gap: 24px;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   CARDS — Organic Leaf/Petal Shape + Luxury Theme
-   ══════════════════════════════════════════════════════════════ */
-
+/* ── CARDS ───────────────────────────────────────────────────── */
 .resource-card {
     border-radius: 28px 8px 28px 8px;
     padding: 0;
@@ -558,7 +630,6 @@ body {
     }
 }
 
-/* Orb blob */
 .resource-card::after {
     content: '';
     position: absolute;
@@ -578,7 +649,6 @@ body {
     transform: scale(1.18) translate(-8px, -8px);
 }
 
-/* Shimmer sweep */
 .resource-card::before {
     content: '';
     position: absolute;
@@ -605,7 +675,6 @@ body {
     border-radius: 6px 32px 6px 32px;
 }
 
-/* ── LEFT ACCENT BAR ─────────────────────────────────────────── */
 .card-strip {
     position: absolute;
     left: 0;
@@ -628,10 +697,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.55) 50%,
-            rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 100%);
     transform: translateY(-100%);
     animation: bar-shimmer 3s ease-in-out infinite;
 }
@@ -657,7 +723,6 @@ body {
     }
 }
 
-/* ── UNIFIED EARTHY THEME ────────────────────────────────────── */
 .resource-card .view-btn {
     background: linear-gradient(135deg, #7E6030, #A8804A);
 }
@@ -667,7 +732,6 @@ body {
     color: var(--ink);
 }
 
-/* HOSPITAL */
 .resource-card[data-cat="Hospital"] {
     background: linear-gradient(145deg, #EFEEDF, #E8E7D5, #DADDB1);
     border-color: rgba(90, 72, 45, 0.15);
@@ -685,7 +749,6 @@ body {
     background: radial-gradient(circle, #D6C7AE, #B3A492);
 }
 
-/* NGO */
 .resource-card[data-cat="NGO"] {
     background: linear-gradient(145deg, #F6F3EA, #EFEADF, #D6C7AE);
     border-color: rgba(90, 72, 45, 0.14);
@@ -703,7 +766,6 @@ body {
     background: radial-gradient(circle, #D6C7AE, #BFB29E);
 }
 
-/* THERAPY */
 .resource-card[data-cat="Therapy"] {
     background: linear-gradient(145deg, #EEF1E6, #E8E7D5, #DADDB1);
     border-color: rgba(90, 72, 45, 0.14);
@@ -721,7 +783,6 @@ body {
     background: radial-gradient(circle, #DADDB1, #BFB29E);
 }
 
-/* SCHOOL */
 .resource-card[data-cat="School"] {
     background: linear-gradient(145deg, #F3F0E8, #EDE6DB, #BFB29E);
     border-color: rgba(90, 72, 45, 0.14);
@@ -739,7 +800,6 @@ body {
     background: radial-gradient(circle, #BFB29E, #B3A492);
 }
 
-/* GOVERNMENT */
 .resource-card[data-cat="Government"] {
     background: linear-gradient(145deg, #F5F1E8, #EFEADF, #D6C7AE);
     border-color: rgba(90, 72, 45, 0.14);
@@ -757,7 +817,6 @@ body {
     background: radial-gradient(circle, #B3A492, #7E6030);
 }
 
-/* ── CARD BODY ───────────────────────────────────────────────── */
 .card-body {
     padding: 22px 22px 18px 30px;
     display: flex;
@@ -793,7 +852,6 @@ body {
     border-radius: 50%;
 }
 
-/* ── BADGES ──────────────────────────────────────────────────── */
 .card-badges {
     display: flex;
     flex-direction: column;
@@ -817,7 +875,6 @@ body {
     transform: scale(1.06) translateX(-2px);
 }
 
-/* Category badges */
 .badge-hospital {
     background: var(--hosp-bdg-bg);
     color: var(--hosp-bdg-tx);
@@ -843,20 +900,17 @@ body {
     color: var(--gov-bdg-tx);
 }
 
-/* Disability type badge — single unified style (replaces motor/cognitive/both) */
 .badge-disability {
     background: #EDE9FE;
     color: #410F96;
 }
 
-/* Country badge */
 .badge-country {
     background: var(--cream);
     color: var(--text2);
     border: 1px solid var(--border2);
 }
 
-/* ── CARD TEXT ───────────────────────────────────────────────── */
 .resource-card h3 {
     font-family: 'Fraunces', serif;
     font-size: 15px;
@@ -881,7 +935,6 @@ body {
     font-weight: 400;
 }
 
-/* ── CARD FOOTER ─────────────────────────────────────────────── */
 .card-footer {
     display: flex;
     justify-content: space-between;
@@ -923,7 +976,6 @@ body {
     }
 }
 
-/* View button */
 .view-btn {
     border: none;
     padding: 8px 18px;
@@ -996,7 +1048,6 @@ body {
     box-shadow: 0 4px 14px rgba(155, 18, 18, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* No results */
 .no-results {
     grid-column: 1 / -1;
     text-align: center;
@@ -1314,7 +1365,10 @@ body {
     opacity: 0.38;
 }
 
-/* ── RESPONSIVE ──────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════════ */
+
 @media (max-width: 1200px) {
     .resource-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1343,21 +1397,149 @@ body {
     }
 }
 
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 20px;
+/* ── TABLET + MOBILE: show hamburger, hide nav links ──────────── */
+@media (max-width: 900px) {
+
+    /* Prevent horizontal overflow so the off-screen drawer is invisible */
+    html,
+    body {
+        overflow-x: hidden;
     }
 
+    /* Show the hamburger button */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Move nav-links off-screen to the right — hidden until opened */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -110%;
+        width: min(290px, 84vw);
+        height: 100dvh;
+        background: #26200a;
+        flex-direction: column;
+        gap: 2px;
+        padding: 76px 14px 36px;
+        z-index: 1200;
+        overflow-y: auto;
+        overflow-x: hidden;
+        list-style: none;
+        border-left: 1px solid rgba(194, 183, 121, 0.12);
+        box-shadow: -6px 0 36px rgba(0, 0, 0, 0.40);
+        transition: right 0.36s cubic-bezier(0.34, 1.08, 0.64, 1);
+        pointer-events: none;
+    }
+
+    /* Open state — JS adds this class */
+    .nav-links.is-open {
+        right: 0;
+        pointer-events: auto;
+    }
+
+    /* "MENU" label at top of drawer */
+    .nav-links::before {
+        content: 'MENU';
+        display: block;
+        font-size: 0.6rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        color: rgba(194, 183, 121, 0.35);
+        padding: 0 12px 14px;
+        border-bottom: 1px solid rgba(194, 183, 121, 0.1);
+        margin-bottom: 10px;
+        flex-shrink: 0;
+    }
+
+    /* Each list item full-width */
+    .nav-links li {
+        width: 100%;
+    }
+
+    /* Links inside the drawer */
     .nav-links a {
-        padding: 7px 13px;
-        font-size: 12.5px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 9px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: rgba(235, 229, 194, 0.8);
+        background: transparent;
+        box-shadow: none;
+        transform: none;
+        border: none;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        transition: background 0.18s, color 0.18s;
     }
 
+    .nav-links a::after {
+        display: none;
+    }
+
+    .nav-links a:hover {
+        background: rgba(194, 183, 121, 0.1);
+        color: #c2b779;
+        transform: none;
+    }
+
+    .nav-links a.active {
+        background: rgba(194, 183, 121, 0.18);
+        color: #c2b779;
+        box-shadow: none;
+        transform: none;
+    }
+
+    /* Lock body scroll when menu is open */
+    body.nav-locked {
+        overflow: hidden;
+    }
+
+    /* Filter section mobile fixes */
     .filter-section {
         margin: 0 16px;
         padding: 18px 20px;
     }
 
+    .filter-row {
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    /* Disability pills — force horizontal scroll, no wrap */
+    #disabilityFilters {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+        max-width: 100%;
+    }
+
+    #disabilityFilters::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Country pills — wrap on mobile */
+    #countryFilters {
+        flex-wrap: wrap !important;
+        overflow-x: visible !important;
+    }
+
+    /* Category pills — wrap on mobile */
+    #categoryFilters {
+        flex-wrap: wrap !important;
+        overflow-x: visible !important;
+    }
+
+    /* Page layout */
     .resource-container {
         padding: 10px 16px 50px;
     }
@@ -1379,12 +1561,20 @@ body {
         padding: 12px 18px 4px;
     }
 
-    .search-box {
-        width: 100%;
-    }
-
     .modal-inner {
         padding: 22px 22px 20px;
+    }
+
+    /* Country pills — wrap on mobile */
+    #countryFilters {
+        flex-wrap: wrap !important;
+        overflow-x: visible !important;
+    }
+
+    /* Category pills — wrap on mobile */
+    #categoryFilters {
+        flex-wrap: wrap !important;
+        overflow-x: visible !important;
     }
 }
 

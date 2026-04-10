@@ -101,6 +101,14 @@
     <footer class="footer">© 2026 UAWP — Unified Adaptive Web Platform &nbsp;·&nbsp; InclusionHub</footer>
 
     <script src="../js/resource.js"></script>
+    <script>
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            console.log('Link found:', a.href, a.textContent.trim());
+            a.addEventListener('click', function (e) {
+                console.log('CLICKED:', this.href);
+            });
+        });
+    </script>
 </body>
 
 </html>
