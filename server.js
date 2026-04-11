@@ -5,9 +5,11 @@ import connectDB from "./database/db.js";
 
 const app = express();
 
+// middleware
 app.use(cors());
 app.use(express.json());
 
+// database
 connectDB();
 
 // ROUTES
@@ -21,4 +23,15 @@ app.use("/api/help", helpRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+// test
+app.get("/", (req, res) => {
+    res.send("API running...");
+});
+
+// LOCAL + VERCEL BOTH SUPPORT
+if (process.env.NODE_ENV !== "production") {
+    app.listen(5000, () => console.log("Server running locally"));
+}
+
+// Vercel এর জন্য
+export default app;
