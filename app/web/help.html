@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UAWP — Get Help</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/help.css">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a class="logo" href="index.html">UAWP</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="resource.html">Resources</a></li>
+            <li><a href="help.html" class="active">Help Request</a></li>
+            <li><a href="success.html">Success Stories</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="help-hero">
+        <div class="hero-eyebrow">
+            <i class="fas fa-hands-helping"></i>
+            We are here for you
+        </div>
+        <h1>Tell us what you need,<br><em>we will find it for you.</em></h1>
+        <p>For people with motor, cognitive, or autism-related disabilities — submit your help request and we will
+            connect
+            you with the right resource.</p>
+    </section>
+
+    <!-- QUICK SELECT -->
+    <div class="quick-section">
+        <p class="quick-label">I am looking for</p>
+        <div class="quick-btns">
+            <button class="quick-btn" onclick="quickSelect(this, 'Hospital')">
+                <i class="fas fa-hospital"></i> A Hospital
+            </button>
+            <button class="quick-btn" onclick="quickSelect(this, 'School')">
+                <i class="fas fa-school"></i> A School
+            </button>
+            <button class="quick-btn" onclick="quickSelect(this, 'NGO Support')">
+                <i class="fas fa-hands-holding-child"></i> NGO Support
+            </button>
+            <button class="quick-btn" onclick="quickSelect(this, 'Therapy Center')">
+                <i class="fas fa-heart-pulse"></i> Therapy Center
+            </button>
+            <button class="quick-btn" onclick="quickSelect(this, 'Assistive Device')">
+                <i class="fas fa-wheelchair"></i> Assistive Device
+            </button>
+        </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-wrapper">
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step-dot active" id="dot1">1</div>
+            <div class="step-line" id="line1"></div>
+            <div class="step-dot" id="dot2">2</div>
+            <div class="step-line" id="line2"></div>
+            <div class="step-dot" id="dot3">3</div>
+            <div class="step-line" id="line3"></div>
+            <div class="step-dot" id="dot4">4</div>
+        </div>
+
+        <div class="form-card">
+
+            <!-- Personal Info -->
+            <div class="step-panel active" id="step1">
+                <h2 class="step-title">Your Information</h2>
+                <p class="step-sub">Tell us a bit about yourself so we can reach you.</p>
+
+                <div class="two-col">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" placeholder="e.g. Rahim Uddin">
+                        </div>
+                        <span class="field-error" id="nameErr">Please enter your name.</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-phone"></i>
+                            <input type="text" id="phone" placeholder="+880 1X XX XXX XXX">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Location / City *</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-location-dot"></i>
+                        <input type="text" id="location" placeholder="e.g. Sylhet, Bangladesh">
+                    </div>
+                    <span class="field-error" id="locationErr">Please enter your location.</span>
+                </div>
+
+                <div class="form-nav">
+                    <span></span>
+                    <button class="btn-next" onclick="goStep(1,2)">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Type of Help -->
+            <div class="step-panel" id="step2">
+                <h2 class="step-title">Type of Help Needed</h2>
+                <p class="step-sub">Select your disability type and what kind of support you are looking for.</p>
+
+                <div class="form-group">
+                    <label>Disability Type *</label>
+                    <div class="dis-group">
+                        <div class="dis-option">
+                            <input type="radio" name="disability" id="disMotor" value="Motor">
+                            <label for="disMotor"><i class="fas fa-person-walking"></i> Motor</label>
+                        </div>
+                        <div class="dis-option">
+                            <input type="radio" name="disability" id="disCognitive" value="Cognitive">
+                            <label for="disCognitive"><i class="fas fa-brain"></i> Cognitive</label>
+                        </div>
+                        <div class="dis-option">
+                            <input type="radio" name="disability" id="disAutism" value="Autism">
+                            <label for="disAutism"><i class="fas fa-infinity"></i> Autism</label>
+                        </div>
+                        <div class="dis-option">
+                            <input type="radio" name="disability" id="disOther" value="Other">
+                            <label for="disOther"><i class="fas fa-ellipsis"></i> Other</label>
+                        </div>
+                    </div>
+                    <span class="field-error" id="disErr">Please select a disability type.</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Type of Support *</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-list-check"></i>
+                        <select id="helpType">
+                            <option value="">Select support type</option>
+                            <option>Hospital / Medical Support</option>
+                            <option>School / Educational Support</option>
+                            <option>NGO Support</option>
+                            <option>Therapy Center</option>
+                            <option>Assistive Device</option>
+                            <option>Financial Help</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <span class="field-error" id="helpTypeErr">Please select a support type.</span>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn-back" onclick="goStep(2,1)">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn-next" onclick="goStep(2,3)">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!--Details -->
+            <div class="step-panel" id="step3">
+                <h2 class="step-title">Describe Your Need</h2>
+                <p class="step-sub">The more detail you give, the better we can help you find the right resource.</p>
+
+                <div class="form-group">
+                    <label>Urgency Level *</label>
+                    <div class="urgency-group">
+                        <div class="urgency-option">
+                            <input type="radio" name="urgency" id="urgLow" value="Low">
+                            <label for="urgLow">
+                                <i class="fas fa-circle-check" style="color:#27ae60"></i> Low
+                            </label>
+                        </div>
+                        <div class="urgency-option">
+                            <input type="radio" name="urgency" id="urgMed" value="Medium">
+                            <label for="urgMed">
+                                <i class="fas fa-circle-exclamation" style="color:#f39c12"></i> Medium
+                            </label>
+                        </div>
+                        <div class="urgency-option">
+                            <input type="radio" name="urgency" id="urgHigh" value="High">
+                            <label for="urgHigh">
+                                <i class="fas fa-triangle-exclamation" style="color:#e74c3c"></i> High
+                            </label>
+                        </div>
+                    </div>
+                    <span class="field-error" id="urgErr">Please select urgency level.</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Message *</label>
+                    <textarea id="description"
+                        placeholder="Explain your situation clearly. Example: My child has autism and needs a school with inclusive education in Sylhet..."></textarea>
+                    <span class="field-error" id="descErr">Please describe your need.</span>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn-back" onclick="goStep(3,2)">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn-next" onclick="goStep(3,4)">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Review & Submit -->
+            <div class="step-panel" id="step4">
+                <h2 class="step-title">Review & Submit</h2>
+                <p class="step-sub">Please check your information before submitting.</p>
+
+                <div id="reviewBox"
+                    style="background:var(--bg); border-radius:12px; padding:20px; margin-bottom:24px; font-size:0.9rem; line-height:2;">
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn-back" onclick="goStep(4,3)">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn-next" onclick="submitForm()">
+                        <i class="fas fa-paper-plane"></i> Submit Request
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUCCESS -->
+            <div class="success-state" id="successState">
+                <div class="check-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2>Request Submitted!</h2>
+                <p>Thank you. Our team will review your request and connect you with the right support within 24–48
+                    hours.</p>
+                <button class="btn-next" onclick="window.location.href='index.html'">
+                    <i class="fas fa-house"></i> Back to Home
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- EMERGENCY STRIP -->
+    <div class="emergency-strip">
+        <div>
+            <div class="em-label">🆘 Emergency Helpline</div>
+            <div class="em-value">01710456200/01960653534</div>
+        </div>
+        <div class="em-divider"></div>
+        <div>
+            <div class="em-label">📧 Email Us</div>
+            <div class="em-value">help@uawp.com</div>
+        </div>
+        <div class="em-divider"></div>
+        <div>
+            <div class="em-label">🕐 Response Time</div>
+            <div class="em-value">Within 24–48 hrs</div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">© 2026 UAWP — Unified Adaptive Web Platform &nbsp;·&nbsp; InclusionHub</footer>
+
+
+    <script src="./js/help.js"></script>
+
+
+</body>
+
+</html>

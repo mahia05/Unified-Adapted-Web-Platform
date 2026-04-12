@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAWP - Login</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+
+    <div class="bg-deco bg-deco-1"></div>
+    <div class="bg-deco bg-deco-2"></div>
+    <div class="bg-deco bg-deco-3"></div>
+
+    <div class="auth-card">
+
+        <span class="auth-logo">UAWP</span>
+
+        <h1 class="auth-heading" id="authHeading">Log In</h1>
+        <p class="auth-subtext" id="authSubtext">Welcome back! Please enter your details.</p>
+
+        <div class="error-msg" id="errorMsg"></div>
+
+        <!-- ── LOGIN FIELDS ── -->
+        <div id="loginFields">
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <div class="input-wrapper">
+                    <i class='bx bx-envelope input-icon'></i>
+                    <input type="email" id="loginEmail" placeholder="your@email.com">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class='bx bx-lock-alt input-icon'></i>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                    <i class='bx bx-hide eye-toggle' id="eyeLogin" onclick="toggleEye('loginPassword','eyeLogin')"></i>
+                </div>
+            </div>
+
+            <button class="auth-btn" onclick="handleLogin()">
+                <i class='bx bx-log-in'></i> Log In
+            </button>
+
+        </div>
+
+        <!-- ── SIGNUP FIELDS ── -->
+        <div id="signupFields">
+
+            <div class="name-row">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <div class="input-wrapper">
+                        <i class='bx bx-user input-icon'></i>
+                        <input type="text" id="signupFirst" placeholder="Rahim">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <div class="input-wrapper">
+                        <i class='bx bx-user input-icon'></i>
+                        <input type="text" id="signupLast" placeholder="Uddin">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <div class="input-wrapper">
+                    <i class='bx bx-envelope input-icon'></i>
+                    <input type="email" id="signupEmail" placeholder="your@email.com">
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class='bx bx-lock-alt input-icon'></i>
+                    <input type="password" id="signupPassword" placeholder="Create a password (min 6 chars)">
+                    <i class='bx bx-hide eye-toggle' id="eyeSignup"
+                        onclick="toggleEye('signupPassword','eyeSignup')"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="input-wrapper">
+                    <i class='bx bx-lock input-icon'></i>
+                    <input type="password" id="signupConfirm" placeholder="Repeat your password">
+                </div>
+            </div>
+
+            <button class="auth-btn" onclick="handleSignup()">
+                <i class='bx bx-user-plus'></i> Create Account
+            </button>
+
+        </div>
+
+        <!-- Divider + switch -->
+        <div class="divider">or</div>
+
+        <p class="switch-text" id="switchText">
+            Don't have an account?
+            <span onclick="switchToSignup()">Sign Up</span>
+        </p>
+
+        <a href="index.html" class="skip-link">Skip for now →</a>
+
+    </div>
+
+
+    <script src="./js/login.js"></script>
+
+</body>
+
+</html>
