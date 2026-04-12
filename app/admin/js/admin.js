@@ -1,7 +1,7 @@
 const API =
     window.location.hostname === "localhost"
         ? "http://localhost:5000/api/admin"
-        : "https://uawp-backend.vercel.app/api/admin";
+        : "https://unified-adapted-web-platform.onrender.com/api/admin";
 let allData = [];
 let allUsers = [];
 let activeFilter = "all";
