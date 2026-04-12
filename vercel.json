@@ -8,6 +8,10 @@
         {
             "src": "/",
             "dest": "app/web/pages/index.html"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "app/web/pages/$1"
         }
     ]
 }
