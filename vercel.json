@@ -7,11 +7,11 @@
         },
         {
             "src": "/",
-            "dest": "app/web/index.html"
+            "dest": "app/web/pages/index.html"
         },
         {
             "src": "/(.*)",
-            "dest": "app/web/$1"
+            "dest": "app/web/pages/$1"
         }
     ]
 }
