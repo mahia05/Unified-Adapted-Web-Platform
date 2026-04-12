@@ -7,22 +7,19 @@ const app = express();
 
 // MIDDLEWARE
 app.use(cors({
-    origin: "*"
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"]
 }));
+
 app.use(express.json());
 
-// DATABASE CONNECTION (SAFE)
-let isConnected = false;
-
+// DATABASE CONNECT
 const startDB = async () => {
-    if (!isConnected) {
-        try {
-            await connectDB();
-            isConnected = true;
-            console.log("MongoDB Connected");
-        } catch (err) {
-            console.error("DB Connection Error:", err);
-        }
+    try {
+        await connectDB();
+        console.log("MongoDB Connected");
+    } catch (err) {
+        console.error("DB Connection Error:", err);
     }
 };
 
@@ -32,8 +29,6 @@ startDB();
 import resourceRoutes from "./app/web/routes/resourceRoutes.js";
 import helpRoutes from "./app/web/routes/helpRoutes.js";
 import authRoutes from "./app/web/routes/authRoutes.js";
-
-// ⚠️ Admin route only keep if backend admin APIs needed
 import adminRoutes from "./app/admin/routes/adminRoutes.js";
 
 app.use("/api/resources", resourceRoutes);
@@ -46,12 +41,9 @@ app.get("/", (req, res) => {
     res.send("API running...");
 });
 
-// LOCAL SERVER ONLY
-if (process.env.NODE_ENV !== "production") {
-    app.listen(5000, () => {
-        console.log("Server running locally on port 5000");
-    });
-}
+// RENDER PORT 
+const PORT = process.env.PORT || 5000;
 
-// VERCEL EXPORT
-export default app;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
