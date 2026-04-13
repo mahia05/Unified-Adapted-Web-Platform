@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAWP — Success Stories</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/success.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a class="logo" href="index.html">UAWP</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="resource.html">Resources</a></li>
+            <li><a href="help.html">Help Request</a></li>
+            <li><a href="success.html" class="active">Success Stories</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="stories-hero">
+        <div class="hero-eyebrow">
+            <i class="fas fa-heart"></i> Real People · Real Change
+        </div>
+        <h1>Stories that <em>inspire</em><br>and give hope.</h1>
+        <p>Every journey here is proof that the right support changes lives.<br>Read, be moved — and share yours.</p>
+        <button class="btn-share-hero" onclick="openSubmitModal()">
+            <i class="fas fa-pen-nib"></i> Share Your Story
+        </button>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <div class="filter-pills" id="catPills">
+            <button class="fpill active" data-cat="all">All Stories</button>
+            <button class="fpill" data-cat="Motor">Motor</button>
+            <button class="fpill" data-cat="Cognitive">Cognitive</button>
+            <button class="fpill" data-cat="Autism">Autism</button>
+            <button class="fpill" data-cat="Visual">Visual</button>
+            <button class="fpill" data-cat="Hearing">Hearing</button>
+            <button class="fpill" data-cat="Other">Other</button>
+        </div>
+        <div class="story-count" id="storyCount"></div>
+    </div>
+
+    <!-- MAGAZINE GRID -->
+    <main class="stories-main">
+        <div class="stories-grid" id="storiesGrid"></div>
+    </main>
+
+    <!-- EMPTY STATE -->
+    <div class="empty-stories" id="emptyState" style="display:none;">
+        <i class="fas fa-book-open"></i>
+        <p>No stories in this category yet. Be the first!</p>
+        <button class="btn-share-hero" onclick="openSubmitModal()" style="margin-top:16px;">
+            <i class="fas fa-pen-nib"></i> Share Your Story
+        </button>
+    </div>
+
+    <!-- STORY DETAIL MODAL -->
+    <div class="modal-overlay" id="storyModal">
+        <div class="story-modal">
+            <button class="modal-close" onclick="closeStoryModal()"><i class="fas fa-xmark"></i></button>
+            <div class="modal-cat-badge" id="mCat"></div>
+            <h2 class="modal-title" id="mTitle"></h2>
+            <div class="modal-meta" id="mMeta"></div>
+            <div class="modal-body-text" id="mBody"></div>
+        </div>
+    </div>
+
+    <!-- SUBMIT MODAL -->
+    <div class="modal-overlay" id="submitModal">
+        <div class="submit-modal">
+            <button class="modal-close" onclick="closeSubmitModal()"><i class="fas fa-xmark"></i></button>
+            <div class="submit-header">
+                <div class="submit-icon"><i class="fas fa-pen-nib"></i></div>
+                <h2>Share Your Story</h2>
+                <p>Your experience could be the hope someone else needs today.</p>
+            </div>
+
+            <div class="form-group">
+                <label>Your Name *</label>
+                <div class="input-wrap">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="sName" placeholder="e.g. Rahim Uddin">
+                </div>
+                <span class="err" id="sNameErr">Please enter your name.</span>
+            </div>
+
+            <div class="form-group">
+                <label>Story Title *</label>
+                <div class="input-wrap">
+                    <i class="fas fa-heading"></i>
+                    <input type="text" id="sTitle" placeholder="e.g. How UAWP helped me find a school for my daughter">
+                </div>
+                <span class="err" id="sTitleErr">Please enter a title.</span>
+            </div>
+
+            <div class="form-group">
+                <label>Disability Category *</label>
+                <div class="input-wrap">
+                    <i class="fas fa-list"></i>
+                    <select id="sCat">
+                        <option value="">Select category</option>
+                        <option value="Motor">Motor</option>
+                        <option value="Cognitive">Cognitive</option>
+                        <option value="Autism">Autism</option>
+                        <option value="Visual">Visual</option>
+                        <option value="Hearing">Hearing</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <span class="err" id="sCatErr">Please select a category.</span>
+            </div>
+
+            <div class="form-group">
+                <label>Your Story *</label>
+                <textarea id="sBody"
+                    placeholder="Tell us your journey — what challenge you faced, how UAWP helped, and how your life changed..."></textarea>
+                <span class="err" id="sBodyErr">Please write your story.</span>
+            </div>
+
+            <div class="submit-actions">
+                <button class="btn-cancel" onclick="closeSubmitModal()">Cancel</button>
+                <button class="btn-submit-story" onclick="submitStory()">
+                    <i class="fas fa-paper-plane"></i> Share Story
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOAT BUTTON -->
+    <button class="fab" onclick="openSubmitModal()" title="Share your story">
+        <i class="fas fa-pen-nib"></i>
+    </button>
+
+    <!-- FOOTER -->
+    <footer class="footer">© 2026 UAWP — Unified Adaptive Web Platform &nbsp;·&nbsp; InclusionHub</footer>
+
+    <script src="./js/success.js"></script>
+</body>
+
+</html>

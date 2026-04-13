@@ -6,6 +6,12 @@ import {
     getAllUsers,
     deleteUser
 } from "../controllers/adminController.js";
+import {
+    getAllStories,
+    addStory,
+    updateStoryStatus,
+    deleteStory
+} from "../controllers/storyController.js";
 
 const router = express.Router();
 
@@ -17,5 +23,11 @@ router.delete("/requests/:id", deleteRequest);
 // Users
 router.get("/users", getAllUsers);
 router.delete("/users/:id", deleteUser);
+
+// Stories
+router.get("/stories", getAllStories);
+router.post("/stories", addStory);
+router.patch("/stories/:id", updateStoryStatus);
+router.delete("/stories/:id", deleteStory);
 
 export default router;
