@@ -1,6 +1,6 @@
 import Story from "../../../database/models/storyModel.js";
 
-// ── GET /api/stories — approved stories only (public) ────────
+// ── GET /api/stories — ONLY Approved stories (public) ────────
 export const getStories = async (req, res) => {
     try {
         const { category } = req.query;
@@ -8,7 +8,7 @@ export const getStories = async (req, res) => {
         if (category && category !== "all") filter.category = category;
 
         const stories = await Story.find(filter)
-            .select("-likedIPs")           // don't expose IPs to frontend
+            .select("-likedIPs")
             .sort({ createdAt: -1 });
 
         res.json(stories);
@@ -17,7 +17,7 @@ export const getStories = async (req, res) => {
     }
 };
 
-// ── POST /api/stories — user submits a story ─────────────────
+// ── POST /api/stories — user submits, goes to Pending ────────
 export const submitStory = async (req, res) => {
     try {
         const { name, title, category, body } = req.body;
@@ -28,38 +28,41 @@ export const submitStory = async (req, res) => {
 
         const story = new Story({
             name, title, category, body,
-            status: "Pending",
+            status: "Pending",   // Must be approved by admin first
             source: "user"
         });
         await story.save();
 
-        res.status(201).json({ success: true, message: "Story submitted! It will appear after admin review." });
+        res.status(201).json({
+            success: true,
+            message: "Story submitted! It will appear after admin review."
+        });
     } catch (err) {
         res.status(500).json({ message: "Submission failed." });
     }
 };
 
-// ── POST /api/stories/:id/like — toggle like ─────────────────
+// ── POST /api/stories/:id/like — toggle like by IP ───────────
 export const likeStory = async (req, res) => {
     try {
         const story = await Story.findById(req.params.id);
         if (!story) return res.status(404).json({ message: "Story not found" });
 
-        // Use IP to prevent duplicate likes
-        const ip = req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress || "unknown";
+        const ip = req.headers["x-forwarded-for"]?.split(",")[0].trim()
+            || req.socket.remoteAddress
+            || "unknown";
 
         const alreadyLiked = story.likedIPs.includes(ip);
         if (alreadyLiked) {
-            // Unlike
             story.likedIPs = story.likedIPs.filter(i => i !== ip);
             story.hearts = Math.max(0, story.hearts - 1);
         } else {
-            // Like
             story.likedIPs.push(ip);
             story.hearts += 1;
         }
         await story.save();
 
+        // Return global heart count — all clients will sync to this
         res.json({ hearts: story.hearts, liked: !alreadyLiked });
     } catch (err) {
         res.status(500).json({ message: "Like failed." });
@@ -82,7 +85,7 @@ export const getAllStories = async (req, res) => {
     }
 };
 
-// ── POST /api/admin/stories — admin adds a story directly ────
+// ── POST /api/admin/stories — admin adds story (auto Approved) 
 export const addStory = async (req, res) => {
     try {
         const { name, title, category, body } = req.body;
@@ -91,7 +94,7 @@ export const addStory = async (req, res) => {
         }
         const story = new Story({
             name, title, category, body,
-            status: "Approved",   // admin stories go live immediately
+            status: "Approved",   // Admin stories go live immediately
             source: "admin"
         });
         await story.save();
@@ -105,6 +108,9 @@ export const addStory = async (req, res) => {
 export const updateStoryStatus = async (req, res) => {
     try {
         const { status } = req.body;
+        if (!["Approved", "Rejected", "Pending"].includes(status)) {
+            return res.status(400).json({ message: "Invalid status." });
+        }
         const story = await Story.findByIdAndUpdate(
             req.params.id,
             { status },

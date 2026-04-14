@@ -1,10 +1,10 @@
 // ═══════════════════════════════════════════════════════════
-//  UAWP SUCCESS STORIES — success.js  (backend connected)
+//  UAWP SUCCESS STORIES — success.js
 // ═══════════════════════════════════════════════════════════
 
-const API = "http://localhost:5000/api/stories";
+const API = "https://unified-adapted-web-platform.onrender.com/api/stories";
+const BASE = "https://unified-adapted-web-platform.onrender.com";
 
-// ── Seed stories shown if backend has none ───────────────────
 const SEED = [
     {
         _id: "seed1", name: "Fatema Begum",
@@ -56,12 +56,8 @@ const SEED = [
     }
 ];
 
-// ── State ─────────────────────────────────────────────────────
 let stories = [];
 let activeFilter = "all";
-// Track liked IDs in localStorage so heart stays filled on reload
-const getLiked = () => JSON.parse(localStorage.getItem("likedStories") || "[]");
-const setLiked = (arr) => localStorage.setItem("likedStories", JSON.stringify(arr));
 
 // ── Helpers ───────────────────────────────────────────────────
 function getInitials(name) {
@@ -79,16 +75,103 @@ function filtered() {
     return stories.filter(s => s.category === activeFilter);
 }
 
-// ── LOAD from backend ─────────────────────────────────────────
+// ── Check if response is valid JSON ──────────────────────────
+function isJsonResponse(res) {
+    const ct = res.headers.get("content-type") || "";
+    return ct.includes("application/json");
+}
+
+// ── Wake server + wait until ready, max 30s ──────────────────
+async function wakeServer() {
+    for (let i = 0; i < 6; i++) {
+        try {
+            const res = await fetch(`${BASE}/`);
+            if (isJsonResponse(res) || res.ok) return true;
+        } catch { /* ignore */ }
+        await new Promise(r => setTimeout(r, 5000));
+    }
+    return false;
+}
+
+// ── LOAD stories from backend ─────────────────────────────────
 async function loadStories() {
     try {
         const res = await fetch(API);
+        if (!isJsonResponse(res)) {
+            // Server sleeping — show seeds, quietly wake in background
+            stories = SEED;
+            render();
+            wakeServer(); // wake for future requests
+            return;
+        }
         const data = await res.json();
         stories = data.length ? data : SEED;
     } catch {
-        stories = SEED; // fallback to seeds if server offline
+        stories = SEED;
     }
     render();
+}
+
+// ── LIKE SYSTEM ───────────────────────────────────────────────
+function getLikedKey() {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const uid = user.email || "guest";
+    return `likedStories_${uid}`;
+}
+
+function getLiked() {
+    return JSON.parse(localStorage.getItem(getLikedKey()) || "[]");
+}
+
+function setLiked(arr) {
+    localStorage.setItem(getLikedKey(), JSON.stringify(arr));
+}
+
+function hasUserLiked(storyId) {
+    return getLiked().includes(String(storyId));
+}
+
+async function toggleLike(id, btn, isSeed) {
+    const liked = getLiked();
+    const alreadyLiked = liked.includes(String(id));
+    const countEl = document.getElementById(`hcount-${id}`);
+    let currentCount = parseInt(countEl.textContent) || 0;
+
+    // Optimistic UI update
+    if (alreadyLiked) {
+        setLiked(liked.filter(x => x !== String(id)));
+        btn.classList.remove("liked");
+        btn.querySelector("i").className = "far fa-heart";
+        countEl.textContent = currentCount - 1;
+    } else {
+        setLiked([...liked, String(id)]);
+        btn.classList.add("liked");
+        btn.querySelector("i").className = "fas fa-heart";
+        countEl.textContent = currentCount + 1;
+        btn.classList.add("pop");
+        setTimeout(() => btn.classList.remove("pop"), 400);
+    }
+
+    if (!isSeed) {
+        try {
+            const res = await fetch(`${API}/${id}/like`, { method: "POST" });
+            if (!isJsonResponse(res)) return; // server sleeping, keep optimistic
+            const data = await res.json();
+            // Sync global count from server
+            countEl.textContent = data.hearts;
+            const modalEl = document.getElementById(`hcount-${id}-m`);
+            if (modalEl) modalEl.textContent = data.hearts;
+            stories = stories.map(s =>
+                String(s._id) === String(id) ? { ...s, hearts: data.hearts } : s
+            );
+        } catch { /* keep optimistic */ }
+    } else {
+        stories = stories.map(s =>
+            String(s._id) === String(id)
+                ? { ...s, hearts: parseInt(countEl.textContent) }
+                : s
+        );
+    }
 }
 
 // ── RENDER ────────────────────────────────────────────────────
@@ -97,7 +180,6 @@ function render() {
     const empty = document.getElementById("emptyState");
     const count = document.getElementById("storyCount");
     const list = filtered();
-    const liked = getLiked();
 
     count.textContent = `${list.length} stor${list.length !== 1 ? "ies" : "y"}`;
 
@@ -110,9 +192,10 @@ function render() {
 
     grid.innerHTML = list.map((s, i) => {
         const initials = getInitials(s.name);
-        const isLiked = liked.includes(String(s._id));
         const isSeed = String(s._id).startsWith("seed");
         const isFirst = i === 0;
+        const liked = hasUserLiked(String(s._id));
+        const heartCount = s.hearts || 0;
 
         return `
         <div class="story-card" onclick="openStory('${s._id}')" style="animation-delay:${i * 0.07}s">
@@ -134,52 +217,16 @@ function render() {
               <button class="read-btn" onclick="event.stopPropagation();openStory('${s._id}')">
                 Read story <i class="fas fa-arrow-right"></i>
               </button>
-              <button class="heart-btn ${isLiked ? "liked" : ""}"
+              <button class="heart-btn ${liked ? "liked" : ""}"
                 onclick="event.stopPropagation();toggleLike('${s._id}',this,${isSeed})"
-                title="${isLiked ? "Unlike" : "Like this story"}">
-                <i class="fa${isLiked ? "s" : "r"} fa-heart"></i>
-                <span id="hcount-${s._id}">${s.hearts}</span>
+                title="${liked ? "Unlike" : "Like this story"}">
+                <i class="fa${liked ? "s" : "r"} fa-heart"></i>
+                <span id="hcount-${s._id}">${heartCount}</span>
               </button>
             </div>
           </div>
         </div>`;
     }).join("");
-}
-
-// ── LIKE toggle ───────────────────────────────────────────────
-async function toggleLike(id, btn, isSeed) {
-    const liked = getLiked();
-    const alreadyLiked = liked.includes(String(id));
-    const countEl = document.getElementById(`hcount-${id}`);
-    let currentCount = parseInt(countEl.textContent) || 0;
-
-    // Optimistic UI update
-    if (alreadyLiked) {
-        setLiked(liked.filter(x => x !== String(id)));
-        btn.classList.remove("liked");
-        btn.querySelector("i").className = "far fa-heart";
-        countEl.textContent = currentCount - 1;
-    } else {
-        setLiked([...liked, String(id)]);
-        btn.classList.add("liked");
-        btn.querySelector("i").className = "fas fa-heart";
-        countEl.textContent = currentCount + 1;
-        // Pop animation
-        btn.classList.add("pop");
-        setTimeout(() => btn.classList.remove("pop"), 400);
-    }
-
-    // If real backend story, call API
-    if (!isSeed) {
-        try {
-            const res = await fetch(`${API}/${id}/like`, { method: "POST" });
-            const data = await res.json();
-            // Sync with server count
-            countEl.textContent = data.hearts;
-        } catch {
-            // Keep optimistic update if server fails
-        }
-    }
 }
 
 // ── STORY DETAIL MODAL ────────────────────────────────────────
@@ -188,8 +235,9 @@ function openStory(id) {
     if (!s) return;
 
     const initials = getInitials(s.name);
-    const liked = getLiked().includes(String(s._id));
+    const liked = hasUserLiked(String(s._id));
     const isSeed = String(s._id).startsWith("seed");
+    const heartCount = s.hearts || 0;
 
     document.getElementById("mCat").textContent = s.category;
     document.getElementById("mTitle").textContent = s.title;
@@ -204,7 +252,7 @@ function openStory(id) {
           onclick="toggleLike('${s._id}',this,${isSeed})"
           style="margin-left:auto;">
           <i class="fa${liked ? "s" : "r"} fa-heart"></i>
-          <span id="hcount-${s._id}-m">${s.hearts}</span>
+          <span id="hcount-${s._id}-m">${heartCount}</span>
         </button>`;
 
     document.getElementById("storyModal").classList.add("open");
@@ -214,17 +262,60 @@ function openStory(id) {
 function closeStoryModal() {
     document.getElementById("storyModal").classList.remove("open");
     document.body.style.overflow = "";
-    loadStories(); // refresh counts
+    loadStories();
 }
 
 document.getElementById("storyModal").addEventListener("click", function (e) {
     if (e.target === this) closeStoryModal();
 });
 
-// ── SUBMIT MODAL ──────────────────────────────────────────────
+// ── SUBMIT MODAL — LOGIN REQUIRED ─────────────────────────────
 function openSubmitModal() {
+    if (!localStorage.getItem("user")) {
+        showLoginRequiredForStory();
+        return;
+    }
     document.getElementById("submitModal").classList.add("open");
     document.body.style.overflow = "hidden";
+}
+
+function showLoginRequiredForStory() {
+    const existing = document.getElementById("loginRequiredStoryModal");
+    if (existing) existing.remove();
+
+    const wrap = document.createElement("div");
+    wrap.id = "loginRequiredStoryModal";
+    wrap.style.cssText = `position:fixed;inset:0;background:rgba(38,25,12,0.58);
+        display:flex;align-items:center;justify-content:center;
+        z-index:9999;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);`;
+    wrap.innerHTML = `
+        <div style="background:#fff;border-radius:20px;padding:36px 32px;max-width:380px;width:100%;
+                    text-align:center;box-shadow:0 24px 64px rgba(38,25,12,0.22);
+                    border-top:4px solid #C9A84C;font-family:'Plus Jakarta Sans',sans-serif;
+                    animation:stModalIn 0.3s cubic-bezier(0.34,1.2,0.64,1) both;">
+            <style>@keyframes stModalIn{from{transform:scale(0.88) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}</style>
+            <div style="width:56px;height:56px;background:#FFF8EC;border-radius:16px;
+                        display:flex;align-items:center;justify-content:center;
+                        font-size:22px;margin:0 auto 18px;">🔒</div>
+            <div style="font-size:18px;font-weight:700;color:#26190C;margin-bottom:10px;">Login Required</div>
+            <div style="font-size:13.5px;color:#6B5440;line-height:1.65;margin-bottom:24px;">
+                You need to be logged in to share your story. Create a free account or sign in to continue.
+            </div>
+            <button onclick="sessionStorage.setItem('redirectAfterLogin','success.html');window.location.href='login.html'"
+                style="width:100%;padding:13px;background:#3D3420;color:#F0E8D6;
+                border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;
+                font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;">
+                Go to Login / Register
+            </button>
+            <button onclick="document.getElementById('loginRequiredStoryModal').remove()"
+                style="width:100%;padding:11px;background:transparent;color:#6B5440;
+                border:1px solid rgba(80,65,45,0.2);border-radius:10px;
+                font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;cursor:pointer;">
+                Cancel
+            </button>
+        </div>`;
+    document.body.appendChild(wrap);
+    wrap.addEventListener("click", e => { if (e.target === wrap) wrap.remove(); });
 }
 
 function closeSubmitModal() {
@@ -236,14 +327,19 @@ document.getElementById("submitModal").addEventListener("click", function (e) {
     if (e.target === this) closeSubmitModal();
 });
 
-// ── SUBMIT STORY ──────────────────────────────────────────────
+// ── SUBMIT STORY — with server wake-up retry ──────────────────
 async function submitStory() {
+    if (!localStorage.getItem("user")) {
+        closeSubmitModal();
+        showLoginRequiredForStory();
+        return;
+    }
+
     const name = document.getElementById("sName").value.trim();
     const title = document.getElementById("sTitle").value.trim();
     const cat = document.getElementById("sCat").value;
     const body = document.getElementById("sBody").value.trim();
 
-    // Validate
     let ok = true;
     const show = id => { document.getElementById(id).style.display = "block"; ok = false; };
     const hide = id => { document.getElementById(id).style.display = "none"; };
@@ -255,50 +351,50 @@ async function submitStory() {
     if (!body) show("sBodyErr");
     if (!ok) return;
 
-    // Button loading state
     const btn = document.querySelector(".btn-submit-story");
     btn.disabled = true;
-    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Submitting…`;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Connecting…`;
 
-    try {
-        const res = await fetch(API, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, title, category: cat, body })
-        });
-        const data = await res.json();
+    // ── Retry loop: up to 4 attempts, 5s apart ───────────────
+    const maxAttempts = 4;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+            if (attempt > 1) {
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Server waking up… (${attempt}/${maxAttempts})`;
+                await new Promise(r => setTimeout(r, 5000));
+            }
 
-        if (!res.ok) throw new Error(data.message);
+            const res = await fetch(API, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, title, category: cat, body })
+            });
 
-        // Reset form
-        ["sName", "sTitle", "sBody"].forEach(id => document.getElementById(id).value = "");
-        document.getElementById("sCat").value = "";
-        closeSubmitModal();
-        showToast("✅ Story submitted! It will appear after admin review.");
+            // Server returned HTML instead of JSON — still waking up
+            if (!isJsonResponse(res)) {
+                if (attempt === maxAttempts) {
+                    showToast("❌ Server is taking too long. Please wait 30 seconds and try again.");
+                }
+                continue;
+            }
 
-    } catch {
-        // Fallback: add locally so user sees result immediately
-        const now = new Date();
-        const tempStory = {
-            _id: "temp_" + Date.now(),
-            name, title, category: cat, body,
-            hearts: 0,
-            createdAt: now,
-            excerpt: body.substring(0, 140) + (body.length > 140 ? "…" : "")
-        };
-        stories.unshift(tempStory);
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Submission failed.");
 
-        ["sName", "sTitle", "sBody"].forEach(id => document.getElementById(id).value = "");
-        document.getElementById("sCat").value = "";
-        closeSubmitModal();
+            // ── Success ──────────────────────────────────────
+            ["sName", "sTitle", "sBody"].forEach(id => document.getElementById(id).value = "");
+            document.getElementById("sCat").value = "";
+            closeSubmitModal();
+            showToast("✅ Story submitted! It will appear after admin approval.");
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fas fa-paper-plane"></i> Share Story`;
+            return;
 
-        activeFilter = "all";
-        document.querySelectorAll(".fpill").forEach(b => b.classList.remove("active"));
-        document.querySelector('.fpill[data-cat="all"]').classList.add("active");
-        render();
-
-        showToast("📝 Story saved! Will sync when server is online.");
-        setTimeout(() => openStory(tempStory._id), 350);
+        } catch (err) {
+            if (attempt === maxAttempts) {
+                showToast("❌ " + (err.message || "Submission failed. Please try again."));
+            }
+        }
     }
 
     btn.disabled = false;
@@ -334,7 +430,7 @@ function showToast(msg) {
     setTimeout(() => {
         t.style.opacity = "0";
         t.style.transform = "translateX(-50%) translateY(12px)";
-    }, 3500);
+    }, 4000);
 }
 
 // ── ESC KEY ───────────────────────────────────────────────────

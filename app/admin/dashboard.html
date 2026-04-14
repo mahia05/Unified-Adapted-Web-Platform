@@ -16,7 +16,7 @@
 
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- SIDEBAR — matches help.html navbar dark tone (#3f3b23) -->
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <div class="logo-icon"><i class="fas fa-shield-halved"></i></div>
@@ -27,14 +27,20 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Main</div>
-            <a class="nav-item active" href="#">
+            <a class="nav-item active" href="#" onclick="switchTab('requests');return false;">
                 <i class="fas fa-table-columns"></i><span>Dashboard</span>
             </a>
-            <a class="nav-item" href="./../web/resource.html">
-                <i class="fas fa-folder-open"></i><span>Resources</span>
-            </a>
-            <a class="nav-item" href="./../web/help.html">
+            <a class="nav-item" href="#" onclick="switchTab('requests');return false;">
                 <i class="fas fa-hand-holding-heart"></i><span>Help Requests</span>
+            </a>
+            <a class="nav-item" href="#" onclick="switchTab('users');return false;">
+                <i class="fas fa-users"></i><span>Users</span>
+            </a>
+            <a class="nav-item" href="#" onclick="switchTab('stories');return false;">
+                <i class="fas fa-star"></i><span>Success Stories</span>
+            </a>
+            <a class="nav-item" href="#" onclick="switchTab('resources');return false;">
+                <i class="fas fa-folder-open"></i><span>Resources</span>
             </a>
             <div class="nav-label">Platform</div>
             <a class="nav-item" href="./../web/index.html">
@@ -59,7 +65,8 @@
                 </div>
             </div>
             <div class="topbar-right">
-                <button class="refresh-btn" onclick="loadRequests(); if(currentTab==='users') loadUsers();">
+                <button class="refresh-btn"
+                    onclick="loadRequests();if(currentTab==='users')loadUsers();if(currentTab==='stories')loadStories();if(currentTab==='resources')loadResources();">
                     <i class="fas fa-rotate-right"></i><span>Refresh</span>
                 </button>
                 <div class="admin-badge">
@@ -101,7 +108,13 @@
                     <i class="fas fa-hand-holding-heart"></i> Help Requests
                 </button>
                 <button class="tab-btn" data-tab="users" onclick="switchTab('users')">
-                    <i class="fas fa-users"></i> Registered Users
+                    <i class="fas fa-users"></i> Users
+                </button>
+                <button class="tab-btn" data-tab="stories" onclick="switchTab('stories')">
+                    <i class="fas fa-star"></i> Stories
+                </button>
+                <button class="tab-btn" data-tab="resources" onclick="switchTab('resources')">
+                    <i class="fas fa-folder-open"></i> Resources
                 </button>
             </div>
 
@@ -109,12 +122,40 @@
             <div class="table-card">
                 <div class="table-header">
                     <h2 id="tableTitle">All Requests</h2>
+
+                    <!-- Requests filter pills -->
                     <div id="filterArea" class="filter-pills">
                         <button class="pill active" onclick="setFilter('all',this)">All</button>
                         <button class="pill" onclick="setFilter('Pending',this)">Pending</button>
                         <button class="pill" onclick="setFilter('Reviewed',this)">Reviewed</button>
                         <button class="pill" onclick="setFilter('Resolved',this)">Resolved</button>
                     </div>
+
+                    <!-- Stories filter pills -->
+                    <div id="storyFilterArea" class="filter-pills" style="display:none;">
+                        <button class="pill active" onclick="setStoryFilter('all',this)">All</button>
+                        <button class="pill" onclick="setStoryFilter('Pending',this)">⏳ Pending</button>
+                        <button class="pill" onclick="setStoryFilter('Approved',this)">✅ Approved</button>
+                        <button class="pill" onclick="setStoryFilter('Rejected',this)">❌ Rejected</button>
+                    </div>
+
+                    <!-- Add Story button -->
+                    <button id="addStoryBtn" onclick="openAddStoryModal()" style="display:none;
+                        align-items:center;gap:8px;padding:8px 16px;border-radius:8px;
+                        border:1px solid var(--border2);background:var(--gold-dim);
+                        color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif;
+                        font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">
+                        <i class="fas fa-plus"></i> Add Story
+                    </button>
+
+                    <!-- Add Resource button -->
+                    <button id="addResourceBtn" onclick="openAddResourceModal()" style="display:none;
+                        align-items:center;gap:8px;padding:8px 16px;border-radius:8px;
+                        border:1px solid var(--border2);background:var(--gold-dim);
+                        color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif;
+                        font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">
+                        <i class="fas fa-plus"></i> Add Resource
+                    </button>
                 </div>
 
                 <div class="search-row" id="searchRowEl">
@@ -127,6 +168,7 @@
 
                 <div class="table-wrap">
                     <table>
+                        <!-- Requests header -->
                         <thead id="requestsTableHeader">
                             <tr>
                                 <th>#</th>
@@ -139,6 +181,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
+                        <!-- Users header -->
                         <thead id="usersTableHeader" style="display:none;">
                             <tr>
                                 <th>#</th>
@@ -146,6 +189,30 @@
                                 <th>Registered</th>
                                 <th>Last Login</th>
                                 <th>Login Count</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- Stories header -->
+                        <thead id="storiesTableHeader" style="display:none;">
+                            <tr>
+                                <th>#</th>
+                                <th>Author</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- Resources header -->
+                        <thead id="resourcesTableHeader" style="display:none;">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Disability Type</th>
+                                <th>Location</th>
+                                <th>Phone</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -185,7 +252,7 @@
         <div class="resolve-modal">
             <div class="resolve-modal-title">Resolve Request</div>
             <div class="resolve-modal-sub">
-                Resolving this request will <strong>send an email</strong> to the user notifying them.
+                Resolving this request will <strong>send an email</strong> to the user notifying them of the resolution.
             </div>
             <div class="resolve-modal-info">
                 <div>👤 <strong>User:</strong> <span id="resolveModalName"></span></div>
@@ -206,11 +273,163 @@
         </div>
     </div>
 
+    <!-- ADD STORY MODAL -->
+    <div class="modal-overlay" id="addStoryModal">
+        <div class="modal" style="border-top-color:var(--gold);">
+            <div class="modal-top">
+                <div>
+                    <div class="modal-name">📝 Add Success Story</div>
+                    <div class="modal-date">Story will be published immediately on the site</div>
+                </div>
+                <button class="modal-close" onclick="closeAddStoryModal()"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+                <div>
+                    <div class="as-label">Person's Name *</div>
+                    <div class="as-input-wrap"><i class="fas fa-user"></i><input type="text" id="asName"
+                            placeholder="e.g. Rahim Uddin"></div>
+                    <span class="as-err" id="asNameErr">Please enter a name.</span>
+                </div>
+                <div>
+                    <div class="as-label">Story Title *</div>
+                    <div class="as-input-wrap"><i class="fas fa-heading"></i><input type="text" id="asTitle"
+                            placeholder="e.g. How UAWP helped my son find a school"></div>
+                    <span class="as-err" id="asTitleErr">Please enter a title.</span>
+                </div>
+                <div>
+                    <div class="as-label">Category *</div>
+                    <div class="as-input-wrap">
+                        <i class="fas fa-tag"></i>
+                        <select id="asCat">
+                            <option value="">Select category</option>
+                            <option value="Motor">Motor</option>
+                            <option value="Cognitive">Cognitive</option>
+                            <option value="Autism">Autism</option>
+                            <option value="Visual">Visual</option>
+                            <option value="Hearing">Hearing</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <span class="as-err" id="asCatErr">Please select a category.</span>
+                </div>
+                <div>
+                    <div class="as-label">Full Story *</div>
+                    <textarea class="as-textarea" id="asBody" placeholder="Write the full story here…"></textarea>
+                    <span class="as-err" id="asBodyErr">Please write the story.</span>
+                </div>
+                <div class="resolve-modal-actions" style="margin-top:4px;">
+                    <button class="btn-cancel" onclick="closeAddStoryModal()">Cancel</button>
+                    <button class="btn-resolve" id="asSubmitBtn" onclick="submitAdminStory()">
+                        <i class="fas fa-paper-plane"></i> Publish Story
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD RESOURCE MODAL -->
+    <div class="modal-overlay" id="addResourceModal">
+        <div class="modal" style="border-top-color:#5ba3f5;max-width:560px;">
+            <div class="modal-top">
+                <div>
+                    <div class="modal-name">🏥 Add New Resource</div>
+                    <div class="modal-date">Resource will be visible in the public directory immediately</div>
+                </div>
+                <button class="modal-close" onclick="closeAddResourceModal()"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div>
+                        <div class="as-label">Resource Name *</div>
+                        <div class="as-input-wrap"><i class="fas fa-building"></i><input type="text" id="arName"
+                                placeholder="e.g. CRP Bangladesh"></div>
+                        <span class="as-err" id="arNameErr">Name is required.</span>
+                    </div>
+                    <div>
+                        <div class="as-label">Category *</div>
+                        <div class="as-input-wrap">
+                            <i class="fas fa-tag"></i>
+                            <select id="arCategory">
+                                <option value="">Select category</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="NGO">NGO</option>
+                                <option value="Therapy">Therapy</option>
+                                <option value="School">School</option>
+                                <option value="Government">Government</option>
+                            </select>
+                        </div>
+                        <span class="as-err" id="arCategoryErr">Category is required.</span>
+                    </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div>
+                        <div class="as-label">Country *</div>
+                        <div class="as-input-wrap"><i class="fas fa-globe"></i><input type="text" id="arCountry"
+                                placeholder="e.g. Bangladesh"></div>
+                        <span class="as-err" id="arCountryErr">Country is required.</span>
+                    </div>
+                    <div>
+                        <div class="as-label">City</div>
+                        <div class="as-input-wrap"><i class="fas fa-city"></i><input type="text" id="arCity"
+                                placeholder="e.g. Dhaka"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="as-label">Disability Type</div>
+                    <div class="as-input-wrap"><i class="fas fa-accessibility"></i><input type="text" id="arDisability"
+                            placeholder="e.g. Physical / Spinal Injury"></div>
+                </div>
+
+                <div>
+                    <div class="as-label">Address</div>
+                    <div class="as-input-wrap"><i class="fas fa-location-dot"></i><input type="text" id="arAddress"
+                            placeholder="e.g. Chapain, Savar, Dhaka-1343"></div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div>
+                        <div class="as-label">Phone</div>
+                        <div class="as-input-wrap"><i class="fas fa-phone"></i><input type="text" id="arPhone"
+                                placeholder="e.g. +880-2-7791312"></div>
+                    </div>
+                    <div>
+                        <div class="as-label">Email</div>
+                        <div class="as-input-wrap"><i class="fas fa-envelope"></i><input type="email" id="arEmail"
+                                placeholder="e.g. info@crp.org"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="as-label">Website</div>
+                    <div class="as-input-wrap"><i class="fas fa-link"></i><input type="text" id="arWebsite"
+                            placeholder="e.g. https://www.crp-bangladesh.org"></div>
+                </div>
+
+                <div>
+                    <div class="as-label">Description</div>
+                    <textarea class="as-textarea" id="arDescription" style="min-height:90px;"
+                        placeholder="Brief description of the resource and what support they provide…"></textarea>
+                </div>
+
+                <div class="resolve-modal-actions" style="margin-top:4px;">
+                    <button class="btn-cancel" onclick="closeAddResourceModal()">Cancel</button>
+                    <button class="btn-resolve" id="arSubmitBtn" onclick="submitAdminResource()"
+                        style="background:rgba(91,163,245,0.15);color:var(--reviewed-text);border-color:var(--reviewed-bdr);">
+                        <i class="fas fa-floppy-disk"></i> Save Resource
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="toast" id="toast"></div>
 
     <script src="./js/admin.js"></script>
     <script>
-        // ── Mobile sidebar toggle ───────────────────────────────
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
         const toggle = document.getElementById('sidebarToggle');
@@ -220,7 +439,9 @@
 
         toggle.addEventListener('click', () => sidebar.classList.contains('mobile-open') ? closeSB() : openSB());
         overlay.addEventListener('click', closeSB);
-        sidebar.querySelectorAll('.nav-item').forEach(el => el.addEventListener('click', () => { if (window.innerWidth <= 640) closeSB(); }));
+        sidebar.querySelectorAll('.nav-item').forEach(el =>
+            el.addEventListener('click', () => { if (window.innerWidth <= 640) closeSB(); })
+        );
     </script>
 
 </body>

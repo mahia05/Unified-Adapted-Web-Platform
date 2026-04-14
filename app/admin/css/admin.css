@@ -103,7 +103,7 @@ body {
     background: rgba(194, 183, 121, 0.4);
 }
 
-/* ══ SIDEBAR ══════════════════════════════════════════════ */
+/* ══ SIDEBAR */
 .sidebar {
     position: fixed;
     top: 0;
@@ -230,7 +230,7 @@ body {
     color: var(--text3);
 }
 
-/* ══ MAIN + TOPBAR ════════════════════════════════════════ */
+/* ══ MAIN + TOPBAR ═ */
 .main {
     margin-left: var(--sidebar-w);
     min-height: 100vh;
@@ -365,7 +365,7 @@ body {
     }
 }
 
-/* ══ CONTENT ══════════════════════════════════════════════ */
+/* ══ CONTENT ═*/
 .content {
     padding: 24px 28px;
     flex: 1;
@@ -922,7 +922,7 @@ tbody td {
     border-color: var(--danger-bdr);
 }
 
-/* ══ MODALS ═══════════════════════════════════════════════ */
+/* ══ MODALS  */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -1218,7 +1218,7 @@ tbody td {
     display: block;
 }
 
-/* ══ RESPONSIVE ═══════════════════════════════════════════ */
+/* ══ RESPONSIVE */
 @media(max-width:1100px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1380,5 +1380,115 @@ tbody td {
         bottom: 12px;
         right: 12px;
         left: 12px;
+    }
+}
+
+
+/* accent-dim needed for add story input focus */
+:root {
+    --accent-dim: rgba(194, 183, 121, 0.10);
+}
+
+/* ── ADD STORY MODAL form label ── */
+.as-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 7px;
+}
+
+/* ── ADD STORY input wrap ── */
+.as-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--surface3);
+    border: 1.5px solid var(--border2);
+    border-radius: var(--r-sm);
+    padding: 10px 13px;
+    transition: var(--ease);
+}
+
+.as-input-wrap:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-dim);
+}
+
+.as-input-wrap i {
+    color: var(--text3);
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.as-input-wrap input,
+.as-input-wrap select {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 13px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text);
+    width: 100%;
+}
+
+.as-input-wrap input::placeholder {
+    color: var(--text3);
+}
+
+.as-input-wrap select option {
+    background: var(--surface2);
+    color: var(--text);
+}
+
+/* ── ADD STORY textarea ── */
+.as-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 11px 13px;
+    border: 1.5px solid var(--border2);
+    border-radius: var(--r-sm);
+    background: var(--surface3);
+    font-size: 13px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text);
+    line-height: 1.65;
+    outline: none;
+    resize: vertical;
+    transition: var(--ease);
+}
+
+.as-textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-dim);
+    background: var(--surface2);
+}
+
+.as-textarea::placeholder {
+    color: var(--text3);
+}
+
+/* ── Validation error ── */
+.as-err {
+    display: none;
+    font-size: 11.5px;
+    color: var(--danger-text);
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* ── Add Story button hover ── */
+#addStoryBtn:hover {
+    background: rgba(194, 183, 121, 0.18) !important;
+    border-color: var(--gold) !important;
+}
+
+/* ── Mobile: hide description col on stories table too ── */
+@media(max-width:640px) {
+
+    #storiesTableHeader th:nth-child(3),
+    tbody td:nth-child(3) {
+        display: none;
     }
 }

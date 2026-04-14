@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const resourceSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    description: String,
+    description: { type: String, default: "" },
     category: {
         type: String,
         enum: ["Hospital", "NGO", "Therapy", "School", "Government"],
@@ -10,15 +10,15 @@ const resourceSchema = new mongoose.Schema({
     },
     disabilityType: {
         type: String,
-        enum: ["Motor", "Cognitive", "Both"],
-        required: true
+        // Expanded to match actual resource data
+        default: "All Disabilities"
     },
     country: { type: String, required: true },
-    city: String,
-    phone: String,
-    email: String,
-    website: String,
-    address: String
+    city: { type: String, default: "" },
+    phone: { type: String, default: "" },
+    email: { type: String, default: "" },
+    website: { type: String, default: "" },
+    address: { type: String, default: "" }
 }, { timestamps: true });
 
 const Resource = mongoose.model("Resource", resourceSchema);
