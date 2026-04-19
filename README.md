@@ -190,7 +190,7 @@ UAWP_Project/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/mahia05/Unified-Adapted-Web-Platform
+git clone https://github.com/mahia05/Unified-Adapted-Web-Platform.git
 cd uawp
 
 # 2. Install dependencies
