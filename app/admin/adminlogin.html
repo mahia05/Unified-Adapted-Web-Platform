@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAWP — Admin Login</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f0e0b;
+            --bg2: #161410;
+            --surface: #1c1a15;
+            --surface2: #221f18;
+            --surface3: #2a261e;
+            --border: rgba(194, 183, 121, 0.08);
+            --border2: rgba(194, 183, 121, 0.14);
+            --border3: rgba(194, 183, 121, 0.22);
+            --text: #f0e8d6;
+            --text2: #b8a88a;
+            --text3: #786450;
+            --gold: #c2b779;
+            --gold2: #f0d98a;
+            --gold-dim: rgba(194, 183, 121, 0.10);
+            --gold-glow: rgba(194, 183, 121, 0.18);
+            --danger-text: #f87171;
+            --danger-bdr: rgba(248, 113, 113, 0.30);
+            --danger-bg: rgba(248, 113, 113, 0.12);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background decorative circles */
+        .bg-deco {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(194, 183, 121, 0.06);
+            pointer-events: none;
+        }
+
+        .bg-deco-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -150px;
+        }
+
+        .bg-deco-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            left: -100px;
+            border-color: rgba(194, 183, 121, 0.04);
+        }
+
+        .bg-deco-3 {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            left: 8%;
+            border-color: rgba(194, 183, 121, 0.05);
+        }
+
+        /* Glow blob */
+        .glow-blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(194, 183, 121, 0.05) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .login-card {
+            position: relative;
+            z-index: 10;
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-top: 2px solid var(--gold);
+            border-radius: 22px;
+            width: 420px;
+            max-width: 95vw;
+            padding: 44px 40px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Logo */
+        .card-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: var(--gold-dim);
+            border: 1px solid var(--border2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            color: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .logo-sub {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--text3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .card-heading {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .card-subtext {
+            font-size: 13px;
+            color: var(--text3);
+            margin-bottom: 28px;
+            line-height: 1.55;
+        }
+
+        /* Error box */
+        .error-box {
+            display: none;
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-bdr);
+            color: var(--danger-text);
+            font-size: 12.5px;
+            font-weight: 500;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-box.show {
+            display: flex;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 7px;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--surface3);
+            border: 1.5px solid var(--border2);
+            border-radius: 10px;
+            padding: 12px 14px;
+            transition: all 0.2s;
+        }
+
+        .input-wrap:focus-within {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-dim);
+        }
+
+        .input-wrap i {
+            color: var(--text3);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .input-wrap input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13.5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text);
+            width: 100%;
+        }
+
+        .input-wrap input::placeholder {
+            color: var(--text3);
+        }
+
+        .eye-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text3);
+            font-size: 13px;
+            padding: 0;
+            transition: color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .eye-btn:hover {
+            color: var(--text2);
+        }
+
+        /* Login button */
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            background: var(--gold-dim);
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            transition: all 0.22s;
+            margin-top: 8px;
+        }
+
+        .login-btn:hover {
+            background: rgba(194, 183, 121, 0.18);
+            border-color: var(--gold);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(194, 183, 121, 0.15);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Back link */
+        .back-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text3);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--text2);
+        }
+
+        /* Security badge */
+        .security-note {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(194, 183, 121, 0.05);
+            border: 1px solid var(--border);
+            margin-top: 22px;
+            font-size: 11.5px;
+            color: var(--text3);
+        }
+
+        .security-note i {
+            color: var(--gold);
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-deco bg-deco-1"></div>
+    <div class="bg-deco bg-deco-2"></div>
+    <div class="bg-deco bg-deco-3"></div>
+    <div class="glow-blob"></div>
+
+    <div class="login-card">
+        <div class="card-logo">
+            <div class="logo-icon"><i class="fas fa-shield-halved"></i></div>
+            <div>
+                <div class="logo-text">UAWP</div>
+                <div class="logo-sub">Admin Access</div>
+            </div>
+        </div>
+
+        <h1 class="card-heading">Admin Login</h1>
+        <p class="card-subtext">Restricted area. Authorised personnel only.</p>
+
+        <div class="error-box" id="errorBox">
+            <i class="fas fa-circle-exclamation"></i>
+            <span id="errorMsg">Invalid credentials.</span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Admin Username</label>
+            <div class="input-wrap">
+                <i class="fas fa-user-shield"></i>
+                <input type="text" id="username" placeholder="Enter admin username" autocomplete="username">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrap">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Enter admin password" autocomplete="current-password"
+                    id="passwordInput">
+                <button class="eye-btn" onclick="toggleEye()" id="eyeBtn" type="button">
+                    <i class="fas fa-eye-slash" id="eyeIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <button class="login-btn" id="loginBtn" onclick="handleAdminLogin()">
+            <i class="fas fa-shield-halved"></i> Access Admin Panel
+        </button>
+
+        <div class="security-note">
+            <i class="fas fa-lock"></i>
+            This session is protected. Credentials are verified locally.
+        </div>
+
+        <a href="../web/index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to main site
+        </a>
+    </div>
+
+    <script>
+        // ── Admin credentials (hardcoded for simple protection) ──
+        const ADMIN_USERNAME = "uawp_admin";
+        const ADMIN_PASSWORD = "InclusionHub@2026";
+
+        function toggleEye() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye-slash';
+            }
+        }
+
+        function showError(msg) {
+            const box = document.getElementById('errorBox');
+            document.getElementById('errorMsg').textContent = msg;
+            box.classList.add('show');
+        }
+
+        function hideError() {
+            document.getElementById('errorBox').classList.remove('show');
+        }
+
+        function handleAdminLogin() {
+            hideError();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                showError('Please enter both username and password.');
+                return;
+            }
+
+            const btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Verifying...`;
+
+            // Simulate slight delay for UX
+            setTimeout(() => {
+                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    // Set session flag
+                    sessionStorage.setItem('adminAuth', 'true');
+                    sessionStorage.setItem('adminAuthTime', Date.now().toString());
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    showError('Invalid username or password. Access denied.');
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fas fa-shield-halved"></i> Access Admin Panel`;
+                    // Shake animation
+                    document.querySelector('.login-card').style.animation = 'none';
+                    document.querySelector('.login-card').offsetHeight;
+                    document.querySelector('.login-card').style.animation = 'shake 0.4s ease';
+                }
+            }, 800);
+        }
+
+        // Enter key support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleAdminLogin();
+        });
+
+        // Shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%,100%{transform:translateX(0)}
+                20%{transform:translateX(-8px)}
+                40%{transform:translateX(8px)}
+                60%{transform:translateX(-5px)}
+                80%{transform:translateX(5px)}
+            }
+        `;
+        document.head.appendChild(style);
+
+        // If already logged in, redirect
+        const auth = sessionStorage.getItem('adminAuth');
+        const authTime = parseInt(sessionStorage.getItem('adminAuthTime') || '0');
+        const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8 hours
+        if (auth === 'true' && (Date.now() - authTime) < SESSION_DURATION) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+
+</html>

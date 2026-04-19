@@ -1,17 +1,71 @@
 {
     "version": 2,
+    "builds": [
+        {
+            "src": "server.js",
+            "use": "@vercel/node"
+        }
+    ],
     "routes": [
         {
             "src": "/api/(.*)",
             "dest": "server.js"
         },
         {
+            "src": "/admin/login",
+            "dest": "/app/admin/login.html"
+        },
+        {
+            "src": "/admin/login.html",
+            "dest": "/app/admin/login.html"
+        },
+        {
+            "src": "/admin",
+            "dest": "/app/admin/login.html"
+        },
+        {
+            "src": "/admin/(.*)",
+            "dest": "/app/admin/$1"
+        },
+        {
             "src": "/",
-            "dest": "app/web/index.html"
+            "dest": "/app/web/index.html"
+        },
+        {
+            "src": "/index.html",
+            "dest": "/app/web/index.html"
+        },
+        {
+            "src": "/resource.html",
+            "dest": "/app/web/resource.html"
+        },
+        {
+            "src": "/help.html",
+            "dest": "/app/web/help.html"
+        },
+        {
+            "src": "/login.html",
+            "dest": "/app/web/login.html"
+        },
+        {
+            "src": "/success.html",
+            "dest": "/app/web/success.html"
+        },
+        {
+            "src": "/css/(.*)",
+            "dest": "/app/web/css/$1"
+        },
+        {
+            "src": "/js/(.*)",
+            "dest": "/app/web/js/$1"
+        },
+        {
+            "src": "/images/(.*)",
+            "dest": "/app/web/images/$1"
         },
         {
             "src": "/(.*)",
-            "dest": "app/web/$1"
+            "dest": "/app/web/$1"
         }
     ]
 }
