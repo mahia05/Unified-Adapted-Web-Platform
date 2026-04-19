@@ -4,6 +4,7 @@
 
 **Live URL:** https://unified-adapted-web-platform.onrender.com  
 **Admin Panel:** https://unified-adapted-web-platform-p28t.vercel.app/admin/login.html
+**User Panel:** https://unified-adapted-web-platform-4nya.vercel.app/
 
 ---
 
@@ -189,7 +190,7 @@ UAWP_Project/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/uawp.git
+git clone https://github.com/mahia05/Unified-Adapted-Web-Platform
 cd uawp
 
 # 2. Install dependencies
@@ -216,9 +217,6 @@ MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/UAWP
 GMAIL_USER=your-email@gmail.com
 GMAIL_PASS=your-gmail-app-password
 ```
-
-> **Note:** `GMAIL_PASS` is a **Gmail App Password** (16-character), NOT your real Gmail password.  
-> Generate one at: Google Account → Security → 2-Step Verification → App Passwords
 
 ---
 
@@ -247,11 +245,6 @@ GMAIL_PASS=your-gmail-app-password
 
 The admin panel is protected by a client-side username/password check.
 
-**Default credentials** (change in `app/admin/login.html`):
-```
-Username: uawp_admin
-Password: InclusionHub@2026
-```
 
 **How it works:**
 - `login.html` checks credentials against hardcoded values
@@ -260,9 +253,7 @@ Password: InclusionHub@2026
 - Session expires after **8 hours**
 - Going directly to `dashboard.html` without logging in redirects to `login.html`
 
-**To change credentials:** Edit the `ADMIN_USERNAME` and `ADMIN_PASSWORD` constants in `app/admin/login.html`.
 
----
 
 ## Email System
 
@@ -281,4 +272,7 @@ All emails are HTML-formatted with the UAWP brand. Templates are in `utils/email
 ## Team
 
 **InclusionHub** — Metropolitan University, Sylhet  
+Team Members:
+    01)Mahia Tabassum Chowdhury-Id:231-115-198_CSE-58-(SEC:E)
+    02)Auditi Sinha -Id:231-115-190_CSE-58-(SEC:E)
 © 2026 UAWP — Unified Adaptive Web Platform
