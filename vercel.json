@@ -1,32 +1,6 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "server.js",
-            "use": "@vercel/node"
-        }
-    ],
     "routes": [
-        {
-            "src": "/api/(.*)",
-            "dest": "server.js"
-        },
-        {
-            "src": "/admin/login",
-            "dest": "/app/admin/login.html"
-        },
-        {
-            "src": "/admin/login.html",
-            "dest": "/app/admin/login.html"
-        },
-        {
-            "src": "/admin",
-            "dest": "/app/admin/login.html"
-        },
-        {
-            "src": "/admin/(.*)",
-            "dest": "/app/admin/$1"
-        },
         {
             "src": "/",
             "dest": "/app/web/index.html"
