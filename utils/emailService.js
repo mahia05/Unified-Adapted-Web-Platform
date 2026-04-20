@@ -140,7 +140,7 @@ export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType
             <div class="info-row"><span class="lbl">Urgency</span><span class="val">${urgency}</span></div>
           </div>
           <div class="desc-box"><strong>Description:</strong><br>${description}</div>
-          <a href="http://localhost:5000/app/admin/pages/dashboard.html" class="btn">View in Admin Dashboard →</a>
+          <a href="https://unified-adapted-web-platform-p28t.vercel.app/" class="btn">View in Admin Dashboard →</a>
         </div>
         <div class="footer"><p>© 2026 UAWP Admin System</p></div>
       </div>
