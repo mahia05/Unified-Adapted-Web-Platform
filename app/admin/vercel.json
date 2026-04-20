@@ -1,29 +1,25 @@
 {
     "version": 2,
-    "rewrites": [
+    "routes": [
         {
-            "source": "/",
-            "destination": "/login.html"
+            "src": "/",
+            "dest": "/login.html"
         },
         {
-            "source": "/login",
-            "destination": "/login.html"
+            "src": "/login.html",
+            "dest": "/login.html"
         },
         {
-            "source": "/dashboard",
-            "destination": "/dashboard.html"
+            "src": "/dashboard.html",
+            "dest": "/dashboard.html"
         },
         {
-            "source": "/dashboard.html",
-            "destination": "/dashboard.html"
+            "src": "/css/(.*)",
+            "dest": "/css/$1"
         },
         {
-            "source": "/css/:file",
-            "destination": "/css/:file"
-        },
-        {
-            "source": "/js/:file",
-            "destination": "/js/:file"
+            "src": "/js/(.*)",
+            "dest": "/js/$1"
         }
     ]
 }
