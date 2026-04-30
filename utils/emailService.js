@@ -1,3 +1,4 @@
+import nodemailer from 'nodemailer';
 // ── Transporter ──────────────────────────────────────────────
 const transporter = nodemailer.createTransport({
   service: "gmail",
