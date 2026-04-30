@@ -49,3 +49,19 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+app.get("/test-email", async (req, res) => {
+    const { sendHelpConfirmationToUser } = await import("./utils/emailService.js");
+    try {
+        await sendHelpConfirmationToUser({
+            name: "Test User",
+            email: "helpcenteruawp@gmail.com",
+            helpType: "General",
+            urgency: "Low",
+            description: "This is a test."
+        });
+        res.send("Email sent!");
+    } catch (err) {
+        res.send("Error: " + err.message);
+    }
+});
