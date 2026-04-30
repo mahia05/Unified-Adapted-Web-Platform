@@ -161,7 +161,7 @@ export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType
 
     await transporter.sendMail({
       from: `"UAWP System" <${process.env.GMAIL_USER}>`,
-      to: process.env.GMAIL_USER,
+      to: process.env.ADMIN_EMAIL,
       subject: `🚨 [${urgency}] New Help Request — ${name} (${helpType})`,
       html
     });
