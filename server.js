@@ -55,7 +55,7 @@ app.get("/test-email", async (req, res) => {
     try {
         await sendHelpConfirmationToUser({
             name: "Test User",
-            email: "helpcenteruawp@gmail.com",
+            email: "mahiatabassumchowdhury@gmail.com",
             helpType: "General",
             urgency: "Low",
             description: "This is a test."
