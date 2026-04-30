@@ -1,27 +1,15 @@
-import nodemailer from "nodemailer";
-
 // ── Transporter ──────────────────────────────────────────────
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  service: "gmail",
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  },
-  connectionTimeout: 60000,
-  socketTimeout: 60000
+    user: process.env.GMAIL_USER,   // your Gmail address
+    pass: process.env.GMAIL_PASS    // Gmail App Password (not your real password)
+  }
 });
 
 // ── 1. Email to USER when they submit a help request ─────────
 export const sendHelpConfirmationToUser = async ({ name, email, helpType, urgency, description }) => {
-  try {
-    console.log("User email sending...");
-
-    const html = `
+  const html = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -93,25 +81,17 @@ export const sendHelpConfirmationToUser = async ({ name, email, helpType, urgenc
     </body>
     </html>`;
 
-    await transporter.sendMail({
-      from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
-      to: email,
-      subject: `✅ Help Request Received — ${helpType} (${urgency} Priority)`,
-      html
-    });
-
-    console.log("User email sent");
-  } catch (err) {
-    console.log("User email error:", err);
-  }
+  await transporter.sendMail({
+    from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
+    to: email,
+    subject: `✅ Help Request Received — ${helpType} (${urgency} Priority)`,
+    html
+  });
 };
 
 // ── 2. Email to ADMIN when a new help request comes in ───────
 export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType, urgency, description }) => {
-  try {
-    console.log("Admin email sending...");
-
-    const html = `
+  const html = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -119,10 +99,10 @@ export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType
       <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
         .wrap { max-width: 560px; margin: 40px auto; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.10); }
-        .header { background: #1C1612; padding: 28px 36px; }
+        .header { background: #1C1612; padding: 28px 36px; display: flex; align-items: center; gap: 14px; }
         .header-logo { font-size: 22px; font-weight: 800; color: #c2b779; letter-spacing: 3px; }
         .header-tag { color: rgba(255,255,255,0.45); font-size: 11px; margin-top: 2px; }
-        .alert-bar { background: ${urgency === 'High' ? '#FFF0F0' : urgency === 'Medium' ? '#FFF8EC' : '#EDFAF4'};
+        .alert-bar { background: ${urgency === 'High' ? '#FFF0F0' : urgency === 'Medium' ? '#FFF8EC' : '#EDFAF4'}; 
                      border-left: 5px solid ${urgency === 'High' ? '#F47070' : urgency === 'Medium' ? '#F5C842' : '#34C97B'};
                      padding: 14px 24px; font-size: 14px; font-weight: 700;
                      color: ${urgency === 'High' ? '#C02020' : urgency === 'Medium' ? '#92600A' : '#157A4A'}; }
@@ -134,6 +114,7 @@ export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType
         .lbl { color: #999; font-weight: 600; font-size: 11px; text-transform: uppercase; min-width: 90px; padding-top: 2px; }
         .val { color: #1C1612; font-weight: 500; flex: 1; }
         .desc-box { background: #F8F3D9; border-radius: 10px; padding: 14px 18px; font-size: 13px; color: #3f3b23; line-height: 1.7; margin-bottom: 20px; border-left: 3px solid #c2b779; }
+        .btn { display: inline-block; background: #3f3b23; color: #c2b779; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 13px; letter-spacing: 0.5px; }
         .footer { background: #1C1612; padding: 16px 36px; text-align: center; }
         .footer p { color: rgba(255,255,255,0.3); font-size: 11px; margin: 0; }
       </style>
@@ -141,8 +122,10 @@ export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType
     <body>
       <div class="wrap">
         <div class="header">
-          <div class="header-logo">UAWP</div>
-          <div class="header-tag">Admin Notification</div>
+          <div>
+            <div class="header-logo">UAWP</div>
+            <div class="header-tag">Admin Notification</div>
+          </div>
         </div>
         <div class="alert-bar">🔔 New ${urgency} Priority Help Request</div>
         <div class="body">
@@ -155,31 +138,24 @@ export const sendHelpNotificationToAdmin = async ({ name, email, phone, helpType
             <div class="info-row"><span class="lbl">Urgency</span><span class="val">${urgency}</span></div>
           </div>
           <div class="desc-box"><strong>Description:</strong><br>${description}</div>
+          <a href="http://localhost:5000/app/admin/pages/dashboard.html" class="btn">View in Admin Dashboard →</a>
         </div>
         <div class="footer"><p>© 2026 UAWP Admin System</p></div>
       </div>
     </body>
     </html>`;
 
-    await transporter.sendMail({
-      from: `"UAWP System" <${process.env.GMAIL_USER}>`,
-      to: process.env.ADMIN_EMAIL,
-      subject: `🚨 [${urgency}] New Help Request — ${name} (${helpType})`,
-      html
-    });
-
-    console.log("Admin email sent");
-  } catch (err) {
-    console.log("Admin email error:", err);
-  }
+  await transporter.sendMail({
+    from: `"UAWP System" <${process.env.GMAIL_USER}>`,
+    to: process.env.GMAIL_USER,  // admin email = same Gmail
+    subject: `🚨 [${urgency}] New Help Request — ${name} (${helpType})`,
+    html
+  });
 };
 
 // ── 3. Email to USER when request is RESOLVED ────────────────
 export const sendResolutionEmailToUser = async ({ name, email, helpType, description, adminNote }) => {
-  try {
-    console.log("Resolution email sending...");
-
-    const html = `
+  const html = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -242,7 +218,7 @@ export const sendResolutionEmailToUser = async ({ name, email, helpType, descrip
           </div>` : ''}
           <p class="text">
             If you need further assistance or have any questions, please don't hesitate to reach out.
-            Thank you for using UAWP! 💛
+            We're always here to help. Thank you for using UAWP! 💛
           </p>
         </div>
         <div class="footer">
@@ -253,15 +229,10 @@ export const sendResolutionEmailToUser = async ({ name, email, helpType, descrip
     </body>
     </html>`;
 
-    await transporter.sendMail({
-      from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
-      to: email,
-      subject: `Your Help Request Has Been Resolved — UAWP`,
-      html
-    });
-
-    console.log("Resolution email sent");
-  } catch (err) {
-    console.log("Resolution email error:", err);
-  }
+  await transporter.sendMail({
+    from: `"UAWP Support" <${process.env.GMAIL_USER}>`,
+    to: email,
+    subject: `Your Help Request Has Been Resolved — UAWP`,
+    html
+  });
 };
