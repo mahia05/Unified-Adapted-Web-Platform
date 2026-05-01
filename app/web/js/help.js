@@ -57,9 +57,11 @@ function validateStep(step) {
   const show = id => { const el = document.getElementById(id); if (el) el.style.display = 'block'; ok = false; };
 
   if (step === 1) {
-    hide('nameErr'); hide('locationErr');
+    hide('nameErr'); hide('locationErr'); hide('emailErr');
     if (!document.getElementById('name').value.trim()) show('nameErr');
     if (!document.getElementById('location').value.trim()) show('locationErr');
+    const emailVal = document.getElementById('email').value.trim();
+    if (!emailVal || !emailVal.includes('@')) show('emailErr');
   }
   if (step === 2) {
     hide('disErr'); hide('helpTypeErr');
